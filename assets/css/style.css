@@ -962,6 +962,25 @@ html.lang-en .lang-en.block { display: block; }
   color: var(--text-dim);
   font-size: 0.95rem;
 }
+.product-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  transition: gap 0.3s var(--ease), color 0.3s ease;
+}
+.product-link svg {
+  width: 14px;
+  height: 14px;
+}
+.product-link:hover {
+  gap: 0.6rem;
+  color: var(--accent-light);
+}
 .product-card .tag {
   position: absolute;
   top: 1.7rem;

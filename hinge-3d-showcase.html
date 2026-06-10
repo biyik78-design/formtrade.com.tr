@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FORS Gizli Menteşe | İnteraktif Mühendislik Vitrini</title>
+  <meta name="description" content="FORS gizli mobilya menteşesinin parça parça ayrılan, kaydırma ile yönlendirilen 3 boyutlu mühendislik sunumu." />
+  <meta name="theme-color" content="#030405" />
+
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/hinge-showcase.css" />
+</head>
+<body>
+
+  <!-- ============ LOADER ============ -->
+  <div class="hx-loader" id="loader">
+    <div class="hx-loader-inner">
+      <div class="hx-loader-mark">F</div>
+      <div class="hx-loader-bar"><div class="hx-loader-fill" id="loaderFill"></div></div>
+      <div class="hx-loader-text">
+        <span class="lang-tr">Sahne hazırlanıyor</span><span class="lang-en">Preparing scene</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="hx-header">
+    <a href="index.html" class="hx-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="20" y1="12" x2="4" y2="12"/><polyline points="11 5 4 12 11 19"/></svg>
+      <span class="lang-tr">FORS'A DÖN</span><span class="lang-en">BACK TO FORS</span>
+    </a>
+    <div class="hx-lang">
+      <button data-lang="tr">TR</button>
+      <button data-lang="en">EN</button>
+    </div>
+  </header>
+
+  <!-- ============ PINNED 3D SCROLL STAGE ============ -->
+  <div class="hx-pin-wrap" id="pinWrap">
+    <div class="hx-stage">
+      <canvas id="hingeCanvas"></canvas>
+      <div class="hx-vignette"></div>
+      <div class="hx-grid"></div>
+      <div class="hx-labels" id="labels"></div>
+
+      <div class="hx-chapters">
+        <!-- Chapter 0 — Hero -->
+        <section class="hx-chapter" data-chapter="0">
+          <div class="hx-chapter-inner">
+            <span class="hx-eyebrow">
+              <span class="lang-tr">FORS MÜHENDİSLİK</span><span class="lang-en">FORS ENGINEERING</span>
+            </span>
+            <h1>
+              <span class="lang-tr">Gizli Menteşe.</span><span class="lang-en">The Concealed Hinge.</span>
+            </h1>
+            <p>
+              <span class="lang-tr">Her detayı düşünülmüş, milimetrik hassasiyetle üretilmiş bir mühendislik parçası. Aşağı kaydırarak iç yapısını keşfedin.</span>
+              <span class="lang-en">A piece of engineering machined to the millimetre, with every detail considered. Scroll to explore what's inside.</span>
+            </p>
+            <div class="hx-scroll-hint">
+              <span class="line"></span>
+              <span class="lang-tr">Kaydır</span><span class="lang-en">Scroll</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 1 — Precision form -->
+        <section class="hx-chapter" data-chapter="1">
+          <div class="hx-chapter-inner">
+            <span class="hx-eyebrow">
+              <span class="lang-tr">HASSAS FORM</span><span class="lang-en">PRECISION FORM</span>
+            </span>
+            <h2>
+              <span class="lang-tr">Mükemmel kapanış için tasarlandı.</span>
+              <span class="lang-en">Engineered for a perfect close.</span>
+            </h2>
+            <p>
+              <span class="lang-tr">Soğuk dövme paslanmaz çelikten hassas kalıplarla şekillendirilen gövde, aynalı yüzey kaplaması ile uzun ömürlü, sessiz bir hareket sunar.</span>
+              <span class="lang-en">Cold-formed stainless steel, shaped in precision dies and finished to a mirror tolerance — built for a lifetime of silent, smooth motion.</span>
+            </p>
+          </div>
+        </section>
+
+        <!-- Chapter 2 — Three core parts separate -->
+        <section class="hx-chapter" data-chapter="2">
+          <div class="hx-chapter-inner">
+            <span class="hx-eyebrow">
+              <span class="lang-tr">ANATOMİ</span><span class="lang-en">ANATOMY</span>
+            </span>
+            <h2>
+              <span class="lang-tr">Üç temel bileşen.</span>
+              <span class="lang-en">Three core components.</span>
+            </h2>
+            <p>
+              <span class="lang-tr">Montaj plakası, menteşe kolu ve Ø35mm kapak — her biri ayrı ayrı işlenir, sonra tek bir hareketli bütün halinde birleştirilir.</span>
+              <span class="lang-en">Mounting plate, hinge arm and Ø35mm cup — each machined separately, then united into a single moving assembly.</span>
+            </p>
+          </div>
+        </section>
+
+        <!-- Chapter 3 — Adjustment screws -->
+        <section class="hx-chapter" data-chapter="3">
+          <div class="hx-chapter-inner">
+            <span class="hx-eyebrow">
+              <span class="lang-tr">HASSAS AYAR</span><span class="lang-en">FINE-TUNED ADJUSTMENT</span>
+            </span>
+            <h2>
+              <span class="lang-tr">Üç yönlü ayar sistemi.</span>
+              <span class="lang-en">Three-way adjustment.</span>
+            </h2>
+            <p>
+              <span class="lang-tr">Yükseklik, yan ve derinlik ayar vidaları, kapı hizalamasını milimetre altı hassasiyetle kusursuzlaştırmanızı sağlar.</span>
+              <span class="lang-en">Height, side and depth adjustment screws let you fine-tune door alignment with sub-millimetre precision.</span>
+            </p>
+          </div>
+        </section>
+
+        <!-- Chapter 4 — Soft-close spring -->
+        <section class="hx-chapter" data-chapter="4">
+          <div class="hx-chapter-inner">
+            <span class="hx-eyebrow">
+              <span class="lang-tr">YUMUŞAK KAPANMA TEKNOLOJİSİ</span><span class="lang-en">SOFT-CLOSE TECHNOLOGY</span>
+            </span>
+            <h2>
+              <span class="lang-tr">Sessiz. Pürüzsüz. Her seferinde.</span>
+              <span class="lang-en">Silent. Smooth. Every time.</span>
+            </h2>
+            <p>
+              <span class="lang-tr">Entegre yaylı piston mekanizması, kapıyı son birkaç santimde yavaşlatarak sert kapanma seslerini tamamen ortadan kaldırır.</span>
+              <span class="lang-en">An integrated spring-and-piston mechanism decelerates the door over its final centimetres, eliminating slams entirely.</span>
+            </p>
+          </div>
+        </section>
+
+        <!-- Chapter 5 — Full exploded view + CTA -->
+        <section class="hx-chapter" data-chapter="5">
+          <div class="hx-chapter-inner">
+            <span class="hx-eyebrow">
+              <span class="lang-tr">TAM GÖRÜNÜM</span><span class="lang-en">FULL BREAKDOWN</span>
+            </span>
+            <h2>
+              <span class="lang-tr">Her parça. Kusursuz mühendislik.</span>
+              <span class="lang-en">Every part. Perfectly engineered.</span>
+            </h2>
+            <p>
+              <span class="lang-tr">9 hassas bileşen, 1977'den beri 50'den fazla ülkeye ihraç edilen FORS kalitesiyle bir araya geliyor.</span>
+              <span class="lang-en">9 precision components, brought together with the FORS quality exported to 50+ countries since 1977.</span>
+            </p>
+            <div class="hx-cta-row">
+              <a href="index.html#products" class="hx-btn hx-btn-primary">
+                <span class="lang-tr">Ürün Kataloğu</span><span class="lang-en">View Catalog</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="13 5 20 12 13 19"/></svg>
+              </a>
+              <a href="index.html#contact" class="hx-btn hx-btn-outline">
+                <span class="lang-tr">İletişime Geç</span><span class="lang-en">Get in Touch</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="hx-progress">
+        <span class="active"></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="hx-footer">
+    <h3>
+      <span class="lang-tr">FORM Ticari ve Sınai Ürünler</span>
+      <span class="lang-en">FORM Ticari ve Sınai Ürünler</span>
+    </h3>
+    <p>
+      <span class="lang-tr">1977'den bu yana FORS markasıyla mobilya endüstrisi için menteşe, çekmece ve ray sistemleri üretiyoruz.</span>
+      <span class="lang-en">Manufacturing hinges, drawer and slide systems for the furniture industry under the FORS brand since 1977.</span>
+    </p>
+    <div class="hx-cta-row">
+      <a href="index.html" class="hx-btn hx-btn-outline">
+        <span class="lang-tr">Ana Sayfaya Dön</span><span class="lang-en">Back to Homepage</span>
+      </a>
+    </div>
+    <div class="hx-footer-meta">
+      © <span id="year"></span> FORM Ticari ve Sınai Ürünler — FORS<span class="lang-tr"> · Tüm hakları saklıdır.</span><span class="lang-en"> · All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script src="assets/vendor/three.min.js"></script>
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script src="assets/vendor/ScrollTrigger.min.js"></script>
+  <script src="assets/js/hinge-showcase.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
