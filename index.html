@@ -199,6 +199,8 @@
       <div class="blob blob-1"></div>
       <div class="blob blob-2"></div>
       <div class="blob blob-3"></div>
+      <canvas id="heroCanvas" class="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-scrim" aria-hidden="true"></div>
 
       <div class="container">
         <div class="hero-content">
@@ -225,29 +227,6 @@
             <div class="chip"><strong>49+</strong><span class="lang-tr">Yıl Tecrübe</span><span class="lang-en">Years Experience</span></div>
             <div class="chip"><strong>50+</strong><span class="lang-tr">İhracat Ülkesi</span><span class="lang-en">Export Countries</span></div>
             <div class="chip"><strong>1000+</strong><span class="lang-tr">Ürün Çeşidi</span><span class="lang-en">Product Range</span></div>
-          </div>
-        </div>
-
-        <div class="hero-visual reveal">
-          <div class="panel panel-1">
-            <svg><use href="#icon-hinge"/></svg>
-            <span class="lang-tr">Menteşeler</span><span class="lang-en">Hinges</span>
-          </div>
-          <div class="panel panel-2 accent2">
-            <svg><use href="#icon-rail"/></svg>
-            <span class="lang-tr">Ray Sistemleri</span><span class="lang-en">Slide Rails</span>
-          </div>
-          <div class="panel panel-3 accent2">
-            <svg><use href="#icon-drawer"/></svg>
-            <span class="lang-tr">Çekmece Sistemleri</span><span class="lang-en">Drawer Systems</span>
-          </div>
-          <div class="panel panel-4">
-            <svg><use href="#icon-handle"/></svg>
-            <span class="lang-tr">Kulp &amp; Aksesuar</span><span class="lang-en">Handles &amp; Accessories</span>
-          </div>
-          <div class="core">
-            <strong>49+</strong>
-            <span class="lang-tr">Yıl Tecrübe</span><span class="lang-en">Years</span>
           </div>
         </div>
       </div>
@@ -935,6 +914,8 @@
     <svg class="icon-up"><use href="#icon-chevron-down"/></svg>
   </button>
 
+  <script src="assets/vendor/three.min.js"></script>
+  <script src="assets/js/hero-3d.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>
