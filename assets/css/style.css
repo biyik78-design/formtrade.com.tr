@@ -296,20 +296,15 @@ html.lang-en .lang-en.block { display: block; }
   gap: 0.7rem;
 }
 
-.logo .mark {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: var(--grad-accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #1a0f02;
-  font-family: "Sora", sans-serif;
-  font-weight: 800;
-  font-size: 1.15rem;
+.logo-img {
+  height: 34px;
+  width: auto;
+  display: block;
   flex-shrink: 0;
-  box-shadow: 0 8px 24px -10px rgba(242, 162, 60, 0.7);
+}
+
+.footer-brand .logo-img {
+  height: 42px;
 }
 
 .logo .word {
@@ -761,6 +756,111 @@ html.lang-en .lang-en.block { display: block; }
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
+}
+
+/* ---------- Product Spotlight ---------- */
+.spotlight-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: center;
+}
+
+.spotlight-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: min-content;
+  gap: 1rem;
+}
+
+.spotlight-main,
+.spotlight-thumb {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.spotlight-main {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 10;
+}
+
+.spotlight-thumb {
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+}
+
+.spotlight-main img,
+.spotlight-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s var(--ease);
+}
+
+.spotlight-main img {
+  object-position: 72% 45%;
+}
+
+.spotlight-main:hover img,
+.spotlight-thumb:hover img {
+  transform: scale(1.06);
+}
+
+.spotlight-tag {
+  position: absolute;
+  left: 1.1rem;
+  bottom: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: rgba(7, 9, 13, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-strong);
+  font-family: "Sora", sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+
+.spotlight-features {
+  display: grid;
+  gap: 1.1rem;
+  margin: 2rem 0 2.4rem;
+}
+.spotlight-features li {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+}
+.spotlight-features .icon-check {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(242, 162, 60, 0.12);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.spotlight-features .icon-check svg {
+  width: 16px;
+  height: 16px;
+}
+.spotlight-features strong {
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+.spotlight-features p {
+  color: var(--text-dim);
+  font-size: 0.92rem;
 }
 
 /* ---------- About ---------- */
@@ -1803,6 +1903,8 @@ html.lang-en .lang-en.block { display: block; }
   .logo .word small { display: none; }
   .header-actions > a.btn-outline { display: none; }
   .about-grid { grid-template-columns: 1fr; }
+  .spotlight-grid { grid-template-columns: 1fr; }
+  .spotlight-grid .spotlight-gallery { order: -1; }
   .contact-grid { grid-template-columns: 1fr; }
   .process-track { grid-template-columns: 1fr 1fr; gap: 2.5rem 1.5rem; }
   .process-track::before { display: none; }
