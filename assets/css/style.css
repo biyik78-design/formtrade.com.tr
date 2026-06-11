@@ -496,20 +496,32 @@ html.lang-en .lang-en.block { display: block; }
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image: url("../img/products/hinge-lifestyle.jpg");
   background-size: cover;
   background-position: center;
-  filter: brightness(0.45) saturate(1.05);
-  animation: hero-photo-zoom 28s ease-in-out infinite alternate;
+  filter: brightness(0.42) saturate(1.05) grayscale(0.3);
+  opacity: 0;
+  animation: hero-photo-zoom 48s ease-in-out infinite alternate, hero-crossfade 40s ease-in-out infinite;
 }
+
+.hero-photo-1 { background-image: url("../img/products/hinge-lifestyle.jpg"); animation-delay: 0s, 0s; }
+.hero-photo-2 { background-image: url("../img/products/hinge-detail-dark.jpg"); animation-delay: -12s, -10s; }
+.hero-photo-3 { background-image: url("../img/products/hinge-detail-white-2.jpg"); animation-delay: -24s, -20s; }
+.hero-photo-4 { background-image: url("../img/products/hinge-detail-white-1.jpg"); animation-delay: -36s, -30s; }
 
 @keyframes hero-photo-zoom {
   0% { transform: scale(1); }
   100% { transform: scale(1.12); }
 }
 
+@keyframes hero-crossfade {
+  0%, 22.5% { opacity: 1; }
+  25%, 97.5% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-photo { animation: none; }
+  .hero-photo { animation: none; opacity: 0; }
+  .hero-photo-1 { opacity: 1; }
 }
 
 .hero-scrim {
