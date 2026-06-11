@@ -50,6 +50,9 @@
     emissive: 0x3a2509,
     emissiveIntensity: 0.6,
   });
+  const matDoorFront = new THREE.MeshStandardMaterial({ color: 0x0a0b0d, metalness: 0.02, roughness: 0.85, envMapIntensity: 0.2, transparent: true });
+  const matCarcassOuter = new THREE.MeshStandardMaterial({ color: 0x3a3d44, metalness: 0.12, roughness: 0.65, transparent: true });
+  const matCarcassInner = new THREE.MeshStandardMaterial({ color: 0x24262b, metalness: 0.08, roughness: 0.75, transparent: true });
 
   /* ---------- Component builders ---------- */
   function buildMountingPlate() {
@@ -214,6 +217,57 @@
       const s = buildScrew(opts);
       s.position[axis] = sign * gap;
       g.add(s);
+    });
+    return g;
+  }
+
+  function buildCabinetDoor() {
+    const w = 2.8,
+      h = 3.9,
+      depth = 0.4,
+      r = 0.05;
+    const shape = roundedRectShape(w, h, r);
+    const geo = new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: true, bevelThickness: 0.025, bevelSize: 0.025, bevelSegments: 3 });
+    geo.translate(-w / 2, 0, -depth / 2);
+    const mesh = new THREE.Mesh(geo, matDoorFront);
+    mesh.castShadow = mesh.receiveShadow = true;
+    return mesh;
+  }
+
+  function buildCabinetCarcass() {
+    const g = new THREE.Group();
+    const W = 3.0,
+      H = 4.2,
+      D = 3.0,
+      t = 0.16;
+
+    const back = new THREE.Mesh(new THREE.BoxGeometry(W, H, t), matCarcassOuter);
+    back.position.set(-W / 2, 0, -D + t / 2);
+    g.add(back);
+
+    const top = new THREE.Mesh(new THREE.BoxGeometry(W, t, D), matCarcassOuter);
+    top.position.set(-W / 2, H / 2 - t / 2, -D / 2);
+    g.add(top);
+
+    const bottom = top.clone();
+    bottom.position.y = -H / 2 + t / 2;
+    g.add(bottom);
+
+    const sidePanel = new THREE.BoxGeometry(t, H, D);
+    const left = new THREE.Mesh(sidePanel, matCarcassInner);
+    left.position.set(-W + t / 2, 0, -D / 2);
+    g.add(left);
+
+    const right = new THREE.Mesh(sidePanel, matCarcassInner);
+    right.position.set(-t / 2, 0, -D / 2);
+    g.add(right);
+
+    const shelf = new THREE.Mesh(new THREE.BoxGeometry(W - t * 2, t, D - t * 2), matCarcassInner);
+    shelf.position.set(-W / 2, -0.35, -D / 2);
+    g.add(shelf);
+
+    g.traverse((o) => {
+      if (o.isMesh) o.castShadow = o.receiveShadow = true;
     });
     return g;
   }
@@ -385,6 +439,30 @@
 
   rig.scale.setScalar(0.62);
 
+  /* ---------- Cabinet door cold-open ---------- */
+  const cabinetGroup = new THREE.Group();
+  cabinetGroup.rotation.y = 0.35;
+  cabinetGroup.scale.setScalar(0.62);
+  scene.add(cabinetGroup);
+
+  const carcass = buildCabinetCarcass();
+  cabinetGroup.add(carcass);
+
+  const doorPivot = new THREE.Group();
+  doorPivot.add(buildCabinetDoor());
+  cabinetGroup.add(doorPivot);
+
+  const cabinetMaterials = [matDoorFront, matCarcassOuter, matCarcassInner];
+  const rigMaterials = [matSteelLight, matSteelMid, matSteelDark, matScrew, matSlot, matSpring, matAccent];
+  rigMaterials.forEach((m) => {
+    m.transparent = true;
+    m.opacity = 0;
+  });
+
+  const DOOR_CLOSE_END = 0.11;
+  const CABINET_FADE = [0.1, 0.19];
+  const RIG_FADE = [0.11, 0.21];
+
   /* ---------- Camera path ---------- */
   const CAM_KEYS = [
     { p: 0.0, pos: [0, 1.3, 7.4], look: [0, 0, 0] },
@@ -425,6 +503,19 @@
         lerp(p.assembled.rot.z, p.exploded.rot.z, t)
       );
     });
+  }
+
+  function updateCabinet(progress) {
+    const closeT = smooth(clamp01(progress / DOOR_CLOSE_END));
+    doorPivot.rotation.y = lerp(-Math.PI / 2, 0, closeT);
+
+    const fadeT = smooth(clamp01((progress - CABINET_FADE[0]) / (CABINET_FADE[1] - CABINET_FADE[0])));
+    const cabOpacity = 1 - fadeT;
+    cabinetMaterials.forEach((m) => (m.opacity = cabOpacity));
+    cabinetGroup.visible = cabOpacity > 0.002;
+
+    const rigT = smooth(clamp01((progress - RIG_FADE[0]) / (RIG_FADE[1] - RIG_FADE[0])));
+    rigMaterials.forEach((m) => (m.opacity = rigT));
   }
 
   /* ---------- Labels ---------- */
@@ -489,6 +580,7 @@
     requestAnimationFrame(animate);
     state.smooth += (state.progress - state.smooth) * 0.085;
     updateParts(state.smooth);
+    updateCabinet(state.smooth);
     updateCamera(state.smooth);
     rig.rotation.y = -0.55 + state.smooth * 0.55 + Math.sin(time * 0.00018) * 0.04;
     updateLabels();
