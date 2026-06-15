@@ -80,12 +80,12 @@ document.addEventListener("DOMContentLoaded", () => {
       .setAttribute("content", lang === "en" ? DESC_EN : DESC_TR);
   };
 
-  const TITLE_TR = "FORM | FORS Mobilya Aksesuarları — Menteşe, Çekmece ve Ray Sistemleri";
-  const TITLE_EN = "FORM | FORS Furniture Fittings — Hinges, Drawer & Slide Systems";
+  const TITLE_TR = "FORM | FORS Mobilya Donanımı — Menteşe, Gazlı Piston ve Aksesuarlar";
+  const TITLE_EN = "FORM | FORS Furniture Fittings — Hinges, Gas Lift Pistons & Accessories";
   const DESC_TR =
-    "FORM Ticari ve Sınai Ürünler — 1977'den bu yana FORS markasıyla menteşe, çekmece sistemleri, ray ve mobilya aksesuarları üretip 50'den fazla ülkeye ihraç ediyoruz.";
+    "FORM Ticari ve Sınai Ürünler — 1977'den bu yana FORS markasıyla menteşe, gazlı piston ve mobilya aksesuarlarını Türkiye pazarına sunup 50'den fazla ülkeye ihraç ediyoruz.";
   const DESC_EN =
-    "FORM Ticari ve Sınai Ürünler — Manufacturing hinges, drawer systems, slide rails and furniture fittings under the FORS brand since 1977, exporting to 50+ countries.";
+    "FORM Ticari ve Sınai Ürünler — Supplying hinges, gas lift pistons and furniture fittings under the FORS brand to the Turkish market since 1977, and exporting to 50+ countries.";
 
   langButtons.forEach((btn) => {
     btn.addEventListener("click", () => setLang(btn.dataset.lang));
