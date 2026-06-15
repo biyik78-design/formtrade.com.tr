@@ -575,6 +575,25 @@
     dotEls.forEach((el, i) => el.classList.toggle("active", i === active));
   }
 
+  /* ---------- Hero video (real product cold-open) ---------- */
+  const heroVideo = document.getElementById("heroVideo");
+  const heroVideoOverlay = document.getElementById("heroVideoOverlay");
+  const HERO_VIDEO_FADE = 0.1;
+  function updateHeroVideo(progress) {
+    const opacity = 1 - smooth(clamp01(progress / HERO_VIDEO_FADE));
+    heroVideo.style.opacity = String(opacity);
+    heroVideoOverlay.style.opacity = String(opacity);
+    if (opacity < 0.01) {
+      heroVideo.style.visibility = "hidden";
+      heroVideoOverlay.style.visibility = "hidden";
+      if (!heroVideo.paused) heroVideo.pause();
+    } else {
+      heroVideo.style.visibility = "visible";
+      heroVideoOverlay.style.visibility = "visible";
+      if (heroVideo.paused) heroVideo.play().catch(() => {});
+    }
+  }
+
   /* ---------- Render loop ---------- */
   function animate(time) {
     requestAnimationFrame(animate);
@@ -585,6 +604,7 @@
     rig.rotation.y = -0.55 + state.smooth * 0.55 + Math.sin(time * 0.00018) * 0.04;
     updateLabels();
     updateChapters(state.smooth);
+    updateHeroVideo(state.smooth);
     renderer.render(scene, camera);
   }
 
