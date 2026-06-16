@@ -269,14 +269,24 @@ main {
    Shared CSS-animated background pieces
    ========================================================= */
 
-/* Chrome ring */
-.chrome-ring {
+/* Chrome ring wrapper — handles centering so the ring can spin cleanly */
+.hx-ring-wrap {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -62%);
   width: 260px;
   height: 260px;
+}
+.hx-ring-wrap--lg {
+  width: 340px;
+  height: 340px;
+}
+
+/* Chrome ring — fills wrapper, no transform of its own so spinRing is clean */
+.chrome-ring {
+  position: absolute;
+  inset: 0;
   border-radius: 50%;
   border: 2px solid transparent;
   background: linear-gradient(#0d0d0d, #0d0d0d) padding-box,
@@ -294,14 +304,11 @@ main {
     conic-gradient(from 180deg, #777 0%, #ddd 20%, #888 40%, #ccc 60%, #777 100%) border-box;
   animation: spinRing 5s linear infinite reverse;
 }
-.chrome-ring--lg {
-  width: 340px;
-  height: 340px;
-}
-.chrome-ring--faint {
+.hx-ring-wrap--faint .chrome-ring {
   opacity: 0.22;
 }
 @keyframes spinRing {
+  from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
@@ -741,8 +748,9 @@ main {
   .hx-scene[data-align="right"] .hx-cta-row {
     justify-content: flex-start;
   }
-  .chrome-ring, .axis-lines, .mirror-sweep { width: 210px; height: 210px; }
-  .chrome-ring--lg { width: 250px; height: 250px; }
+  .hx-ring-wrap { width: 210px; height: 210px; }
+  .hx-ring-wrap--lg { width: 250px; height: 250px; }
+  .axis-lines, .mirror-sweep { width: 210px; height: 210px; }
   .orbit-dot { top: -88px; transform-origin: 3px 88px; }
   .anatomy-rig { gap: 24px; transform: translate(-50%, -58%) scale(0.85); }
   .damper-rig { transform: translate(-50%, -58%) scale(0.85); }
