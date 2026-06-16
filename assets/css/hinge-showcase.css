@@ -274,7 +274,7 @@ main {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -62%);
+  transform: translate(-50%, -62%) translateZ(0);
   width: 260px;
   height: 260px;
 }
@@ -283,7 +283,7 @@ main {
   height: 340px;
 }
 
-/* Chrome ring — fills wrapper, no transform of its own so spinRing is clean */
+/* Chrome ring — fills wrapper, GPU-composited rotation */
 .chrome-ring {
   position: absolute;
   inset: 0;
@@ -291,8 +291,10 @@ main {
   border: 2px solid transparent;
   background: linear-gradient(#0d0d0d, #0d0d0d) padding-box,
     conic-gradient(from 0deg, #888 0%, #eee 18%, #c0c0c0 35%, #555 50%, #eee 68%, #aaa 80%, #888 100%) border-box;
-  animation: spinRing 8s linear infinite;
+  animation: spinRing 5s linear infinite;
   opacity: 0.55;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 .chrome-ring::after {
   content: "";
@@ -302,7 +304,8 @@ main {
   border: 1px solid transparent;
   background: linear-gradient(#0d0d0d, #0d0d0d) padding-box,
     conic-gradient(from 180deg, #777 0%, #ddd 20%, #888 40%, #ccc 60%, #777 100%) border-box;
-  animation: spinRing 5s linear infinite reverse;
+  animation: spinRing 3.5s linear infinite reverse;
+  will-change: transform;
 }
 .hx-ring-wrap--faint .chrome-ring {
   opacity: 0.22;
@@ -392,11 +395,14 @@ main {
   top: -110px;
   left: -3px;
   transform-origin: 3px 110px;
+  will-change: transform;
+  backface-visibility: hidden;
 }
-.orbit-dot:nth-child(1) { animation: orbit1 6s linear infinite; }
-.orbit-dot:nth-child(2) { animation: orbit1 6s linear infinite -2s; }
-.orbit-dot:nth-child(3) { animation: orbit1 6s linear infinite -4s; }
+.orbit-dot:nth-child(1) { animation: orbit1 4.5s linear infinite; }
+.orbit-dot:nth-child(2) { animation: orbit1 4.5s linear infinite -1.5s; }
+.orbit-dot:nth-child(3) { animation: orbit1 4.5s linear infinite -3s; }
 @keyframes orbit1 {
+  from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
