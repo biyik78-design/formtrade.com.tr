@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FORM | E-Bülten — Sektör Haberlerinden Haberdar Olun</title>
+  <meta name="description" content="FORM e-bültenine abone olun. Yeni ürünler, sektör yenilikleri, kampanyalar ve önemli duyuruları ilk siz öğrenin." />
+  <meta name="theme-color" content="#060609" />
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <style>
+    /* ── Shared sub-page chrome ── */
+    .page-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(6,6,9,.88); backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .page-nav-logo { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+    .page-nav-logo img { height: 28px; width: auto; }
+    .page-nav-logo span { font-family: "Sora", sans-serif; font-weight: 800; font-size: .9rem; color: var(--text); }
+    .page-nav-logo small { display: block; font-size: .65rem; font-weight: 400; color: var(--text-dim); font-family: "Inter", sans-serif; }
+    .lang-switch { display: flex; background: rgba(255,255,255,.06); border-radius: 999px; padding: 3px; }
+    .lang-switch button { font-weight: 700; font-size: .7rem; letter-spacing: .06em; border: none; background: none; color: var(--text-dim); padding: .35rem .75rem; border-radius: 999px; cursor: pointer; transition: background .2s, color .2s; }
+    .lang-switch button.active { background: var(--accent); color: #1a0f02; }
+
+    .page-subnav {
+      position: fixed; top: 64px; left: 0; right: 0; z-index: 99;
+      background: rgba(6,6,9,.92); backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-subnav .container { display: flex; height: 44px; align-items: center; overflow-x: auto; }
+    .page-subnav a {
+      padding: 0 1.2rem; height: 44px; display: flex; align-items: center;
+      font-size: .8rem; font-weight: 600; color: var(--text-dim);
+      text-decoration: none; white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color .2s, border-color .2s;
+    }
+    .page-subnav a:hover { color: var(--text); border-color: rgba(242,162,60,.4); }
+    .page-subnav a.active { color: var(--text); border-color: var(--accent); }
+
+    .page-footer { background: var(--bg); border-top: 1px solid var(--border); padding: 2rem 0; text-align: center; }
+    .page-footer p { color: var(--text-dim); font-size: .82rem; }
+    .page-footer a { color: var(--accent); text-decoration: none; }
+
+    main { padding-top: 108px; }
+
+    /* ── Subscribe section ── */
+    .nl-section {
+      min-height: calc(100vh - 108px);
+      display: flex; align-items: center;
+      padding: clamp(4rem, 9vw, 8rem) 0;
+    }
+    .nl-inner { max-width: 600px; }
+    .nl-eyebrow { display: inline-flex; align-items: center; gap: .5rem; font-size: .78rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.4rem; }
+    .nl-inner h1 { font-family: "Sora", sans-serif; font-size: clamp(2.4rem, 5.5vw, 3.8rem); font-weight: 800; line-height: 1.1; letter-spacing: -.02em; margin-bottom: 1.2rem; }
+    .nl-inner p { color: var(--text-dim); font-size: clamp(.96rem, 1.4vw, 1.06rem); line-height: 1.75; margin-bottom: 2.4rem; }
+
+    /* ── What's inside ── */
+    .nl-perks { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-bottom: 2.4rem; }
+    .nl-perk {
+      display: flex; align-items: center; gap: .7rem;
+      padding: .9rem 1.2rem; border-radius: var(--radius-sm, 8px);
+      background: rgba(255,255,255,.025); border: 1px solid var(--border);
+      font-size: .86rem; font-weight: 600;
+    }
+    .nl-perk .pdot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+    /* ── Form ── */
+    .nl-form-wrap { display: flex; gap: .75rem; max-width: 480px; }
+    .nl-form-wrap input[type="email"] {
+      flex: 1; padding: .9rem 1.3rem; border-radius: 999px;
+      background: rgba(255,255,255,.06); border: 1px solid var(--border);
+      color: var(--text); font-size: .92rem; outline: none;
+      transition: border-color .25s ease;
+    }
+    .nl-form-wrap input[type="email"]:focus { border-color: var(--accent); }
+    .nl-form-wrap input[type="email"]::placeholder { color: var(--text-faint, #4a5060); }
+    .nl-form-wrap button {
+      padding: .9rem 1.8rem; border-radius: 999px;
+      background: linear-gradient(135deg, #ffb380 0%, var(--accent) 55%, #c4591a 100%);
+      color: #1a0f02; font-weight: 700; font-size: .9rem;
+      border: none; cursor: pointer; white-space: nowrap;
+      transition: opacity .2s ease, transform .2s ease;
+      box-shadow: 0 16px 40px -18px rgba(232,124,42,.65);
+    }
+    .nl-form-wrap button:hover { opacity: .9; transform: translateY(-1px); }
+
+    .nl-note { margin-top: 1rem; font-size: .78rem; color: var(--text-dim); }
+    .nl-note a { color: var(--accent); text-decoration: none; }
+
+    /* ── Success state ── */
+    .nl-success {
+      display: none; align-items: center; gap: 1rem; margin-top: 1.4rem;
+      padding: 1.2rem 1.6rem; border-radius: var(--radius-md);
+      background: rgba(242,162,60,.07); border: 1px solid rgba(242,162,60,.3);
+    }
+    .nl-success.show { display: flex; }
+    .nl-success svg { width: 22px; height: 22px; color: var(--accent); flex-shrink: 0; }
+    .nl-success p { font-size: .92rem; color: var(--text); margin: 0; line-height: 1.55; }
+
+    @media (max-width: 580px) {
+      .nl-perks { grid-template-columns: 1fr; }
+      .nl-form-wrap { flex-direction: column; }
+      .nl-form-wrap input[type="email"], .nl-form-wrap button { border-radius: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+    </symbol>
+  </svg>
+
+  <!-- NAV -->
+  <nav class="page-nav">
+    <div class="container">
+      <a href="index.html" class="page-nav-logo">
+        <img src="assets/img/fors-logo.png" alt="FORS" />
+        <span>FORM<small><span class="lang-tr">Tic. ve Sınai Ürünler</span><span class="lang-en">Commercial &amp; Industrial</span></small></span>
+      </a>
+      <div class="lang-switch">
+        <button data-lang="tr" type="button">TR</button>
+        <button data-lang="en" type="button">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SUB-NAV -->
+  <div class="page-subnav">
+    <div class="container">
+      <a href="hakkimizda.html"><span class="lang-tr">Hakkımızda</span><span class="lang-en">About</span></a>
+      <a href="ik.html"><span class="lang-tr">İnsan Kaynakları</span><span class="lang-en">Careers</span></a>
+      <a href="kvkk.html">KVKK</a>
+      <a href="ebulten.html" class="active"><span class="lang-tr">E-Bülten</span><span class="lang-en">Newsletter</span></a>
+    </div>
+  </div>
+
+  <main>
+    <section class="nl-section section-soft">
+      <div class="container">
+        <div class="nl-inner">
+          <p class="nl-eyebrow"><span class="lang-tr">E-Bülten</span><span class="lang-en">Newsletter</span></p>
+          <h1 class="reveal">
+            <span class="lang-tr">Sektörden<br>İlk Siz Haberdar Olun</span>
+            <span class="lang-en">Be the First to<br>Know What's New</span>
+          </h1>
+          <p class="reveal">
+            <span class="lang-tr">Yeni ürünler, özel kampanyalar ve sektör yenilikleri doğrudan gelen kutunuza gelsin. Aboneliğinizi istediğiniz zaman iptal edebilirsiniz.</span>
+            <span class="lang-en">New products, exclusive campaigns and industry innovations delivered straight to your inbox. Cancel your subscription at any time.</span>
+          </p>
+
+          <div class="nl-perks reveal">
+            <div class="nl-perk"><span class="pdot"></span><span class="lang-tr">Yeni Ürün Duyuruları</span><span class="lang-en">New Product Launches</span></div>
+            <div class="nl-perk"><span class="pdot"></span><span class="lang-tr">Özel Kampanyalar</span><span class="lang-en">Exclusive Campaigns</span></div>
+            <div class="nl-perk"><span class="pdot"></span><span class="lang-tr">Sektör Haberleri</span><span class="lang-en">Industry News</span></div>
+            <div class="nl-perk"><span class="pdot"></span><span class="lang-tr">Teknik Rehberler</span><span class="lang-en">Technical Guides</span></div>
+          </div>
+
+          <form class="nl-form-wrap reveal" id="nlForm" onsubmit="handleSubscribe(event)">
+            <input type="email" id="nlEmail" required
+              placeholder="E-posta adresiniz / Your email" />
+            <button type="submit">
+              <span class="lang-tr">Abone Ol</span><span class="lang-en">Subscribe</span>
+            </button>
+          </form>
+
+          <div class="nl-success" id="nlSuccess">
+            <svg><use href="#icon-check-circle"/></svg>
+            <p>
+              <span class="lang-tr"><strong>Teşekkürler!</strong> E-bültenimize başarıyla abone oldunuz.</span>
+              <span class="lang-en"><strong>Thank you!</strong> You have successfully subscribed to our newsletter.</span>
+            </p>
+          </div>
+
+          <p class="nl-note reveal">
+            <span class="lang-tr">Kişisel verileriniz yalnızca e-bülten gönderimi amacıyla kullanılır. Detaylar için <a href="kvkk.html">KVKK Aydınlatma Metni</a>'ni okuyun.</span>
+            <span class="lang-en">Your personal data is used only for newsletter delivery. Read our <a href="kvkk.html">Privacy Policy</a> for details.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <div class="container">
+      <p>
+        © <span id="year"></span> Form Ticari ve Sınai Ürünler San. ve Dış Tic. A.Ş.
+        <span class="lang-tr"> · Tüm hakları saklıdır.</span><span class="lang-en"> · All rights reserved.</span>
+        &nbsp;·&nbsp;
+        <a href="index.html"><span class="lang-tr">Ana Sayfa</span><span class="lang-en">Home</span></a>
+        &nbsp;·&nbsp;
+        <a href="index.html#contact"><span class="lang-tr">İletişim</span><span class="lang-en">Contact</span></a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function handleSubscribe(e) {
+      e.preventDefault();
+      const form = document.getElementById("nlForm");
+      const success = document.getElementById("nlSuccess");
+      form.style.display = "none";
+      success.classList.add("show");
+    }
+  </script>
+</body>
+</html>
