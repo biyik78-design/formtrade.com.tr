@@ -793,6 +793,108 @@ main {
   .hx-scene p { font-size: 0.92rem; }
 }
 
+/* ---------- Ambient glow orbs (fixed, drift around page) ---------- */
+.hx-orbs {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.hx-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(88px);
+  will-change: transform;
+}
+
+/* Orb 1 — large orange, bottom-left → drifts up-right */
+.hx-orb-1 {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(232, 124, 42, 0.38) 0%, transparent 70%);
+  bottom: -12%;
+  left: -10%;
+  animation: hxOrb1 24s ease-in-out infinite alternate;
+}
+@keyframes hxOrb1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  40%  { transform: translate(18vw, -22vh) scale(1.12); }
+  100% { transform: translate(6vw, -50vh) scale(0.95); }
+}
+
+/* Orb 2 — medium teal, top-right → drifts down-left */
+.hx-orb-2 {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(67, 223, 208, 0.28) 0%, transparent 70%);
+  top: -8%;
+  right: -8%;
+  animation: hxOrb2 19s ease-in-out infinite alternate;
+}
+@keyframes hxOrb2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-22vw, 18vh) scale(1.08); }
+  100% { transform: translate(-10vw, 38vh) scale(1); }
+}
+
+/* Orb 3 — small orange, left mid → drifts right and up */
+.hx-orb-3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(232, 124, 42, 0.22) 0%, transparent 70%);
+  top: 38%;
+  left: -6%;
+  animation: hxOrb3 15s ease-in-out 3s infinite alternate;
+}
+@keyframes hxOrb3 {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(12vw, -28vh); }
+}
+
+/* Orb 4 — teal, top-left → drifts down-right */
+.hx-orb-4 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(67, 223, 208, 0.2) 0%, transparent 70%);
+  top: -10%;
+  left: 8%;
+  animation: hxOrb4 21s ease-in-out 1.8s infinite alternate;
+}
+@keyframes hxOrb4 {
+  0%   { transform: translate(0, 0) scale(0.95); }
+  50%  { transform: translate(14vw, 28vh) scale(1.1); }
+  100% { transform: translate(-4vw, 56vh) scale(1); }
+}
+
+/* Orb 5 — orange, bottom-right → drifts up-left */
+.hx-orb-5 {
+  width: 290px;
+  height: 290px;
+  background: radial-gradient(circle, rgba(232, 124, 42, 0.25) 0%, transparent 70%);
+  bottom: -6%;
+  right: 4%;
+  animation: hxOrb5 17s ease-in-out 2.4s infinite alternate;
+}
+@keyframes hxOrb5 {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(-18vw, -45vh); }
+}
+
+/* Orb 6 — faint teal, bottom-left mid → rightward sweep */
+.hx-orb-6 {
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(67, 223, 208, 0.16) 0%, transparent 70%);
+  bottom: 20%;
+  left: -4%;
+  animation: hxOrb6 13s ease-in-out 5s infinite alternate;
+}
+@keyframes hxOrb6 {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(28vw, -12vh); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;

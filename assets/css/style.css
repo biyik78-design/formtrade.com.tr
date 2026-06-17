@@ -1306,28 +1306,34 @@ html.lang-en .lang-en.block { display: block; }
   .stack-card-3 { border-color: var(--accent); box-shadow: var(--shadow-glow); }
 }
 
-/* ---------- Product Category Carousel (10 cards, fade) ---------- */
+/* ---------- Product Category Carousel (10 cards, horizontal, glow) ---------- */
 .pcat-carousel {
-  max-width: 680px;
+  max-width: 860px;
   margin: 0 auto;
 }
 .pcat-stage {
   display: grid;
   grid-template-areas: "card";
-  margin: 2.4rem 0 1.2rem;
+  margin: 2.6rem 0 1.4rem;
 }
+
+/* Base card — 2-column horizontal layout */
 .pcat-card {
   grid-area: card;
-  padding: 2.2rem 2.4rem;
+  display: grid;
+  grid-template-columns: 148px 1fr;
   border-radius: var(--radius-lg);
-  border: 1px solid var(--border-strong);
-  background: var(--surface);
-  display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
+  border: 1px solid var(--accent);
+  background: linear-gradient(135deg, #0f1220 0%, var(--surface) 60%, #0f1220 100%);
+  box-shadow:
+    0 0 0 1px rgba(242, 162, 60, 0.18),
+    0 0 32px -6px rgba(242, 162, 60, 0.5),
+    0 32px 72px -32px rgba(242, 162, 60, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  overflow: hidden;
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  transform: translateY(18px);
+  transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
   pointer-events: none;
 }
 .pcat-card.active {
@@ -1338,36 +1344,104 @@ html.lang-en .lang-en.block { display: block; }
 .pcat-card.exit {
   opacity: 0;
   transform: translateY(-14px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition: opacity 0.38s ease, transform 0.38s ease;
 }
-.pcat-header {
+
+/* Teal variant (cards 06 & 10) */
+.pcat-card--teal {
+  border-color: var(--accent-2);
+  box-shadow:
+    0 0 0 1px rgba(67, 223, 208, 0.18),
+    0 0 32px -6px rgba(67, 223, 208, 0.45),
+    0 32px 72px -32px rgba(67, 223, 208, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Left column — icon + counter */
+.pcat-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  padding: 2.6rem 1.4rem;
+  background: rgba(242, 162, 60, 0.045);
+  border-right: 1px solid rgba(242, 162, 60, 0.18);
+  position: relative;
+}
+.pcat-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 100% 70% at 50% 50%, rgba(242, 162, 60, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.pcat-card--teal .pcat-visual {
+  background: rgba(67, 223, 208, 0.04);
+  border-right-color: rgba(67, 223, 208, 0.18);
+}
+.pcat-card--teal .pcat-visual::after {
+  background: radial-gradient(ellipse 100% 70% at 50% 50%, rgba(67, 223, 208, 0.07) 0%, transparent 70%);
+}
+
+/* Icon box */
+.pcat-big-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
+  background: rgba(242, 162, 60, 0.12);
+  border: 1px solid rgba(242, 162, 60, 0.25);
+  color: var(--accent);
   display: flex;
   align-items: center;
-  gap: 1.1rem;
-}
-.pcat-header .product-icon {
-  margin-bottom: 0;
+  justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 0 20px -4px rgba(242, 162, 60, 0.35);
+  position: relative;
+  z-index: 1;
 }
+.pcat-big-icon svg {
+  width: 34px;
+  height: 34px;
+}
+.pcat-card--teal .pcat-big-icon {
+  background: rgba(67, 223, 208, 0.1);
+  border-color: rgba(67, 223, 208, 0.25);
+  color: var(--accent-2);
+  box-shadow: 0 0 20px -4px rgba(67, 223, 208, 0.3);
+}
+
 .pcat-num {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
-  display: block;
-  margin-bottom: 0.3rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.pcat-card--teal .pcat-num {
+  color: var(--accent-2);
+}
+
+/* Right column — content */
+.pcat-body {
+  padding: 2.4rem 2.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 .pcat-card h3 {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
 }
-.pcat-card > p {
+.pcat-body > p {
   color: var(--text-dim);
   font-size: 0.93rem;
-  line-height: 1.72;
+  line-height: 1.74;
 }
 .pcat-chips {
   display: flex;
@@ -1375,12 +1449,12 @@ html.lang-en .lang-en.block { display: block; }
   gap: 0.42rem;
 }
 .pcat-chip {
-  font-size: 0.71rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.03em;
   padding: 0.28rem 0.72rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.055);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--text-dim);
   white-space: nowrap;
@@ -1388,17 +1462,19 @@ html.lang-en .lang-en.block { display: block; }
 .pcat-footer {
   display: flex;
   align-items: center;
-  padding-top: 0.8rem;
+  padding-top: 0.85rem;
   border-top: 1px solid var(--border);
   margin-top: auto;
 }
 .pcat-count {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-faint);
 }
+
+/* Progress bar */
 .pcat-progress-wrap {
   height: 2px;
   background: var(--border);
@@ -1408,7 +1484,7 @@ html.lang-en .lang-en.block { display: block; }
 }
 .pcat-bar {
   height: 100%;
-  background: var(--accent);
+  background: linear-gradient(to right, var(--accent), #ffb866);
   border-radius: 2px;
   width: 0;
 }
@@ -1419,6 +1495,8 @@ html.lang-en .lang-en.block { display: block; }
   from { width: 0; }
   to   { width: 100%; }
 }
+
+/* Dots */
 .pcat-dots {
   display: flex;
   justify-content: center;
@@ -1439,6 +1517,26 @@ html.lang-en .lang-en.block { display: block; }
   background: var(--accent);
   width: 22px;
   border-radius: 999px;
+}
+
+@media (max-width: 620px) {
+  .pcat-card {
+    grid-template-columns: 1fr;
+  }
+  .pcat-visual {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 1.4rem 1.8rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(242, 162, 60, 0.18);
+  }
+  .pcat-card--teal .pcat-visual {
+    border-bottom-color: rgba(67, 223, 208, 0.18);
+  }
+  .pcat-body {
+    padding: 1.6rem 1.8rem;
+  }
 }
 
 /* ---------- Scroll-driven showcase (3D tilt panel) ---------- */
