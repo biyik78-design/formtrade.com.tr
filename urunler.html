@@ -28,6 +28,10 @@
     .lang-switch { display: flex; background: rgba(255,255,255,.06); border-radius: 999px; padding: 3px; }
     .lang-switch button { font-weight: 700; font-size: .7rem; letter-spacing: .06em; border: none; background: none; color: var(--text-dim); padding: .35rem .75rem; border-radius: 999px; cursor: pointer; transition: background .2s, color .2s; }
     .lang-switch button.active { background: var(--accent); color: #1a0f02; }
+    .page-nav-links { display: flex; align-items: center; gap: 1.6rem; }
+    .page-nav-links a { font-size: .82rem; font-weight: 500; color: var(--text-dim); text-decoration: none; transition: color .2s; letter-spacing: .01em; }
+    .page-nav-links a:hover { color: var(--text); }
+    @media (max-width: 768px) { .page-nav-links { display: none; } }
 
     main { padding-top: 64px; }
 
@@ -373,9 +377,17 @@
         <img src="assets/img/fors-logo.png" alt="FORS" />
         <span>FORM<small><span class="lang-tr">Tic. ve Sınai Ürünler</span><span class="lang-en">Commercial &amp; Industrial</span></small></span>
       </a>
-      <div class="lang-switch">
-        <button data-lang="tr" type="button">TR</button>
-        <button data-lang="en" type="button">EN</button>
+      <div style="display:flex;align-items:center;gap:1.6rem">
+        <nav class="page-nav-links">
+          <a href="index.html"><span class="lang-tr">Ana Sayfa</span><span class="lang-en">Home</span></a>
+          <a href="hakkimizda.html"><span class="lang-tr">Hakkımızda</span><span class="lang-en">About</span></a>
+          <a href="hinge-3d-showcase.html"><span class="lang-tr">3D Vitrin</span><span class="lang-en">3D Showcase</span></a>
+          <a href="index.html#contact"><span class="lang-tr">İletişim</span><span class="lang-en">Contact</span></a>
+        </nav>
+        <div class="lang-switch">
+          <button data-lang="tr" type="button">TR</button>
+          <button data-lang="en" type="button">EN</button>
+        </div>
       </div>
     </div>
   </nav>
