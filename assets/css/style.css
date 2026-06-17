@@ -1306,6 +1306,141 @@ html.lang-en .lang-en.block { display: block; }
   .stack-card-3 { border-color: var(--accent); box-shadow: var(--shadow-glow); }
 }
 
+/* ---------- Product Category Carousel (10 cards, fade) ---------- */
+.pcat-carousel {
+  max-width: 680px;
+  margin: 0 auto;
+}
+.pcat-stage {
+  display: grid;
+  grid-template-areas: "card";
+  margin: 2.4rem 0 1.2rem;
+}
+.pcat-card {
+  grid-area: card;
+  padding: 2.2rem 2.4rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  pointer-events: none;
+}
+.pcat-card.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.pcat-card.exit {
+  opacity: 0;
+  transform: translateY(-14px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.pcat-header {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+.pcat-header .product-icon {
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+.pcat-num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.pcat-card h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.pcat-card > p {
+  color: var(--text-dim);
+  font-size: 0.93rem;
+  line-height: 1.72;
+}
+.pcat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+}
+.pcat-chip {
+  font-size: 0.71rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.28rem 0.72rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+.pcat-footer {
+  display: flex;
+  align-items: center;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.pcat-count {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.pcat-progress-wrap {
+  height: 2px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 1.4rem;
+}
+.pcat-bar {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  width: 0;
+}
+.pcat-bar.running {
+  animation: pcatFill 5s linear forwards;
+}
+@keyframes pcatFill {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+.pcat-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.45rem;
+}
+.pcat-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border-strong);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.35s var(--ease), width 0.35s var(--ease);
+}
+.pcat-dot.active {
+  background: var(--accent);
+  width: 22px;
+  border-radius: 999px;
+}
+
 /* ---------- Scroll-driven showcase (3D tilt panel) ---------- */
 .scroll-stage {
   overflow: hidden;
