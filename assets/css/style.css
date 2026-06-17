@@ -1177,6 +1177,102 @@ html.lang-en .lang-en.block { display: block; }
   color: var(--text-dim);
 }
 
+/* ── Product chips inside stack card ── */
+.stack-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.sc-chip {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.1);
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+/* ── Card-stack auto-rotation states ──
+   state-a → card-1 front
+   state-b → card-2 front
+   state-c → card-3 front (default look unchanged) */
+
+/* --- state-a: card-1 is front --- */
+.card-stack.state-a .stack-card-1 {
+  transform: skewY(-6deg) translate(72px, 58px);
+  z-index: 3; filter: grayscale(0);
+  border-color: var(--accent); box-shadow: var(--shadow-glow);
+}
+.card-stack.state-a .stack-card-2 {
+  transform: skewY(-6deg) translate(-72px, -46px);
+  z-index: 1; filter: grayscale(1);
+  border-color: var(--border-strong); box-shadow: none;
+}
+.card-stack.state-a .stack-card-3 {
+  transform: skewY(-6deg) translate(0, 6px);
+  z-index: 2; filter: grayscale(1);
+  border-color: var(--border-strong); box-shadow: none;
+}
+
+/* --- state-b: card-2 is front --- */
+.card-stack.state-b .stack-card-1 {
+  transform: skewY(-6deg) translate(0, 6px);
+  z-index: 2; filter: grayscale(1);
+  border-color: var(--border-strong); box-shadow: none;
+}
+.card-stack.state-b .stack-card-2 {
+  transform: skewY(-6deg) translate(72px, 58px);
+  z-index: 3; filter: grayscale(0);
+  border-color: var(--accent-2); box-shadow: 0 20px 60px -25px rgba(67,223,208,.45);
+}
+.card-stack.state-b .stack-card-3 {
+  transform: skewY(-6deg) translate(-72px, -46px);
+  z-index: 1; filter: grayscale(1);
+  border-color: var(--border-strong); box-shadow: none;
+}
+
+/* --- state-c: card-3 is front (mirrors the default CSS) --- */
+.card-stack.state-c .stack-card-1 {
+  transform: skewY(-6deg) translate(-72px, -46px);
+  z-index: 1; filter: grayscale(1);
+  border-color: var(--border-strong); box-shadow: none;
+}
+.card-stack.state-c .stack-card-2 {
+  transform: skewY(-6deg) translate(0, 6px);
+  z-index: 2; filter: grayscale(1);
+  border-color: var(--border-strong); box-shadow: none;
+}
+.card-stack.state-c .stack-card-3 {
+  transform: skewY(-6deg) translate(72px, 58px);
+  z-index: 3; filter: grayscale(0);
+  border-color: var(--accent); box-shadow: var(--shadow-glow);
+}
+
+/* ── Progress dots ── */
+.cs-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 2.2rem;
+}
+.cs-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border-strong);
+  border: none; cursor: pointer; padding: 0;
+  transition: background 0.35s var(--ease), transform 0.35s var(--ease), width 0.35s var(--ease);
+}
+.cs-dot.active {
+  background: var(--accent);
+  transform: scale(1.35);
+  width: 22px;
+  border-radius: 999px;
+}
+
 @media (max-width: 768px) {
   .card-stack {
     display: flex;
@@ -1186,6 +1282,15 @@ html.lang-en .lang-en.block { display: block; }
     min-height: 0;
   }
   .stack-card,
+  .card-stack.state-a .stack-card-1,
+  .card-stack.state-a .stack-card-2,
+  .card-stack.state-a .stack-card-3,
+  .card-stack.state-b .stack-card-1,
+  .card-stack.state-b .stack-card-2,
+  .card-stack.state-b .stack-card-3,
+  .card-stack.state-c .stack-card-1,
+  .card-stack.state-c .stack-card-2,
+  .card-stack.state-c .stack-card-3,
   .card-stack:hover .stack-card-1,
   .card-stack:hover .stack-card-2,
   .card-stack:hover .stack-card-3,
@@ -1195,6 +1300,8 @@ html.lang-en .lang-en.block { display: block; }
     transform: none;
     filter: grayscale(0);
     width: 100%;
+    box-shadow: none;
+    border-color: var(--border-strong);
   }
   .stack-card-3 { border-color: var(--accent); box-shadow: var(--shadow-glow); }
 }

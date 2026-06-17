@@ -288,31 +288,54 @@ main {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 2px solid transparent;
+  border: 3px solid transparent;
   background: linear-gradient(#0d0d0d, #0d0d0d) padding-box,
-    conic-gradient(from 0deg, #888 0%, #eee 18%, #c0c0c0 35%, #555 50%, #eee 68%, #aaa 80%, #888 100%) border-box;
-  animation: spinRing 5s linear infinite;
-  opacity: 0.55;
+    conic-gradient(from 0deg,
+      #444 0%, #aaa 12%, #fff 17%, #bbb 22%,
+      #555 40%, #333 55%, #777 72%,
+      #eee 80%, #888 88%, #444 100%) border-box;
+  animation: spinRing 4s linear infinite;
+  opacity: 0.8;
   will-change: transform;
   backface-visibility: hidden;
 }
+/* Sweeping bright arc — makes rotation unmistakably visible */
+.chrome-ring::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg,
+    transparent 0deg, transparent 305deg,
+    rgba(255,210,130,0.14) 330deg,
+    rgba(255,255,255,0.42) 348deg,
+    rgba(255,210,130,0.14) 358deg,
+    transparent 360deg);
+  animation: spinRing 4s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+/* Inner counter-rotating ring */
 .chrome-ring::after {
   content: "";
   position: absolute;
-  inset: 18px;
+  inset: 16px;
   border-radius: 50%;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   background: linear-gradient(#0d0d0d, #0d0d0d) padding-box,
-    conic-gradient(from 180deg, #777 0%, #ddd 20%, #888 40%, #ccc 60%, #777 100%) border-box;
-  animation: spinRing 3.5s linear infinite reverse;
+    conic-gradient(from 90deg,
+      #333 0%, #ddd 15%, #fff 20%,
+      #bbb 26%, #444 50%, #999 75%, #333 100%) border-box;
+  animation: spinRing 2.6s linear infinite reverse;
   will-change: transform;
+  backface-visibility: hidden;
 }
-.hx-ring-wrap--faint .chrome-ring {
-  opacity: 0.22;
-}
+.hx-ring-wrap--faint .chrome-ring { opacity: 0.3; }
+.hx-ring-wrap--faint .chrome-ring::before { opacity: 0.4; }
+
 @keyframes spinRing {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  to   { transform: rotate(360deg); }
 }
 
 /* Axis lines — height / side / depth */
