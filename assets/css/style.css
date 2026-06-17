@@ -1306,58 +1306,130 @@ html.lang-en .lang-en.block { display: block; }
   .stack-card-3 { border-color: var(--accent); box-shadow: var(--shadow-glow); }
 }
 
-/* ---------- Product Category Carousel (10 cards, horizontal, glow) ---------- */
-.pcat-carousel {
-  max-width: 860px;
-  margin: 0 auto;
-}
-.pcat-stage {
-  display: grid;
-  grid-template-areas: "card";
-  margin: 2.6rem 0 1.4rem;
+/* ---------- Product Category Carousel — stacked + racing border ---------- */
+
+/* Animatable CSS custom property for spinning conic-gradient border */
+@property --pcat-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
 }
 
-/* Base card — 2-column horizontal layout */
+.pcat-carousel {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+/* Inner wrapper — gives space for decorative ghost cards above-left */
+.pcat-carousel-inner {
+  position: relative;
+  padding: 44px 0 0 44px;
+  margin: 2.6rem 0 1.2rem;
+}
+
+/* Ghost / shadow cards — same visual size as stage, offset up-left */
+.pcat-deco {
+  position: absolute;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #0b0d16 0%, #0f1320 100%);
+  pointer-events: none;
+  width: calc(100% - 44px);
+  height: calc(100% - 44px);
+}
+.pcat-deco-1 {
+  top: 22px; left: 22px;
+  z-index: 2;
+  border: 1px solid rgba(255,255,255,0.09);
+  opacity: 0.65;
+  box-shadow: 0 12px 32px -12px rgba(0,0,0,0.5);
+}
+.pcat-deco-2 {
+  top: 0; left: 0;
+  z-index: 1;
+  border: 1px solid rgba(255,255,255,0.06);
+  opacity: 0.35;
+}
+
+/* Live carousel grid */
+.pcat-stage {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-areas: "card";
+}
+
+/* Base card — hidden/inactive */
 .pcat-card {
   grid-area: card;
   display: grid;
   grid-template-columns: 148px 1fr;
   border-radius: var(--radius-lg);
-  border: 1px solid var(--accent);
-  background: linear-gradient(135deg, #0f1220 0%, var(--surface) 60%, #0f1220 100%);
-  box-shadow:
-    0 0 0 1px rgba(242, 162, 60, 0.18),
-    0 0 32px -6px rgba(242, 162, 60, 0.5),
-    0 32px 72px -32px rgba(242, 162, 60, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(242,162,60,0.22);
+  background: linear-gradient(135deg, #0f1220 0%, var(--surface) 55%, #0f1220 100%);
+  box-shadow: 0 12px 40px -20px rgba(0,0,0,0.55),
+              inset 0 1px 0 rgba(255,255,255,0.04);
   overflow: hidden;
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
   pointer-events: none;
 }
+
+/* Active card — visible + racing border sweep */
 .pcat-card.active {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(135deg, #0f1220 0%, var(--surface) 55%, #0f1220 100%) padding-box,
+    conic-gradient(from var(--pcat-angle),
+      rgba(242,162,60,0.08) 0deg,
+      transparent 18deg,
+      transparent 300deg,
+      rgba(255,160,40,0.45) 325deg,
+      rgba(255,235,130,1)   350deg,
+      rgba(255,160,40,0.45) 360deg
+    ) border-box;
+  box-shadow:
+    0 0 0 1px rgba(242,162,60,0.14),
+    0 0 40px -8px rgba(242,162,60,0.58),
+    0 28px 64px -28px rgba(242,162,60,0.38),
+    inset 0 1px 0 rgba(255,255,255,0.07);
+  animation: pcatBorderSpin 2.2s linear infinite;
 }
+
+@keyframes pcatBorderSpin {
+  to { --pcat-angle: 360deg; }
+}
+
+/* Exit */
 .pcat-card.exit {
   opacity: 0;
   transform: translateY(-14px);
   transition: opacity 0.38s ease, transform 0.38s ease;
 }
 
-/* Teal variant (cards 06 & 10) */
-.pcat-card--teal {
-  border-color: var(--accent-2);
+/* Teal variant active (cards 06 & 10) */
+.pcat-card--teal.active {
+  background:
+    linear-gradient(135deg, #091414 0%, var(--surface) 55%, #091414 100%) padding-box,
+    conic-gradient(from var(--pcat-angle),
+      rgba(67,223,208,0.08) 0deg,
+      transparent 18deg,
+      transparent 300deg,
+      rgba(67,223,208,0.45) 325deg,
+      rgba(200,255,248,1)   350deg,
+      rgba(67,223,208,0.45) 360deg
+    ) border-box;
   box-shadow:
-    0 0 0 1px rgba(67, 223, 208, 0.18),
-    0 0 32px -6px rgba(67, 223, 208, 0.45),
-    0 32px 72px -32px rgba(67, 223, 208, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    0 0 0 1px rgba(67,223,208,0.14),
+    0 0 40px -8px rgba(67,223,208,0.52),
+    0 28px 64px -28px rgba(67,223,208,0.32),
+    inset 0 1px 0 rgba(255,255,255,0.07);
 }
 
-/* Left column — icon + counter */
+/* Left column */
 .pcat-visual {
   display: flex;
   flex-direction: column;
@@ -1365,23 +1437,23 @@ html.lang-en .lang-en.block { display: block; }
   justify-content: center;
   gap: 1.1rem;
   padding: 2.6rem 1.4rem;
-  background: rgba(242, 162, 60, 0.045);
-  border-right: 1px solid rgba(242, 162, 60, 0.18);
+  background: rgba(242,162,60,0.045);
+  border-right: 1px solid rgba(242,162,60,0.18);
   position: relative;
 }
 .pcat-visual::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 100% 70% at 50% 50%, rgba(242, 162, 60, 0.07) 0%, transparent 70%);
+  background: radial-gradient(ellipse 100% 70% at 50% 50%, rgba(242,162,60,0.07) 0%, transparent 70%);
   pointer-events: none;
 }
 .pcat-card--teal .pcat-visual {
-  background: rgba(67, 223, 208, 0.04);
-  border-right-color: rgba(67, 223, 208, 0.18);
+  background: rgba(67,223,208,0.04);
+  border-right-color: rgba(67,223,208,0.18);
 }
 .pcat-card--teal .pcat-visual::after {
-  background: radial-gradient(ellipse 100% 70% at 50% 50%, rgba(67, 223, 208, 0.07) 0%, transparent 70%);
+  background: radial-gradient(ellipse 100% 70% at 50% 50%, rgba(67,223,208,0.07) 0%, transparent 70%);
 }
 
 /* Icon box */
@@ -1389,26 +1461,23 @@ html.lang-en .lang-en.block { display: block; }
   width: 72px;
   height: 72px;
   border-radius: var(--radius-md);
-  background: rgba(242, 162, 60, 0.12);
-  border: 1px solid rgba(242, 162, 60, 0.25);
+  background: rgba(242,162,60,0.12);
+  border: 1px solid rgba(242,162,60,0.28);
   color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 0 20px -4px rgba(242, 162, 60, 0.35);
+  box-shadow: 0 0 22px -4px rgba(242,162,60,0.4);
   position: relative;
   z-index: 1;
 }
-.pcat-big-icon svg {
-  width: 34px;
-  height: 34px;
-}
+.pcat-big-icon svg { width: 34px; height: 34px; }
 .pcat-card--teal .pcat-big-icon {
-  background: rgba(67, 223, 208, 0.1);
-  border-color: rgba(67, 223, 208, 0.25);
+  background: rgba(67,223,208,0.1);
+  border-color: rgba(67,223,208,0.28);
   color: var(--accent-2);
-  box-shadow: 0 0 20px -4px rgba(67, 223, 208, 0.3);
+  box-shadow: 0 0 22px -4px rgba(67,223,208,0.35);
 }
 
 .pcat-num {
@@ -1421,11 +1490,9 @@ html.lang-en .lang-en.block { display: block; }
   position: relative;
   z-index: 1;
 }
-.pcat-card--teal .pcat-num {
-  color: var(--accent-2);
-}
+.pcat-card--teal .pcat-num { color: var(--accent-2); }
 
-/* Right column — content */
+/* Right column */
 .pcat-body {
   padding: 2.4rem 2.6rem;
   display: flex;
@@ -1443,19 +1510,15 @@ html.lang-en .lang-en.block { display: block; }
   font-size: 0.93rem;
   line-height: 1.74;
 }
-.pcat-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.42rem;
-}
+.pcat-chips { display: flex; flex-wrap: wrap; gap: 0.42rem; }
 .pcat-chip {
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.03em;
   padding: 0.28rem 0.72rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
   color: var(--text-dim);
   white-space: nowrap;
 }
@@ -1488,15 +1551,13 @@ html.lang-en .lang-en.block { display: block; }
   border-radius: 2px;
   width: 0;
 }
-.pcat-bar.running {
-  animation: pcatFill 5s linear forwards;
-}
+.pcat-bar.running { animation: pcatFill 5s linear forwards; }
 @keyframes pcatFill {
   from { width: 0; }
   to   { width: 100%; }
 }
 
-/* Dots */
+/* Navigation dots */
 .pcat-dots {
   display: flex;
   justify-content: center;
@@ -1504,13 +1565,10 @@ html.lang-en .lang-en.block { display: block; }
   gap: 0.45rem;
 }
 .pcat-dot {
-  width: 7px;
-  height: 7px;
+  width: 7px; height: 7px;
   border-radius: 50%;
   background: var(--border-strong);
-  border: none;
-  cursor: pointer;
-  padding: 0;
+  border: none; cursor: pointer; padding: 0;
   transition: background 0.35s var(--ease), width 0.35s var(--ease);
 }
 .pcat-dot.active {
@@ -1519,24 +1577,26 @@ html.lang-en .lang-en.block { display: block; }
   border-radius: 999px;
 }
 
+/* Responsive */
+@media (max-width: 720px) {
+  .pcat-carousel-inner { padding: 28px 0 0 28px; }
+  .pcat-deco { width: calc(100% - 28px); height: calc(100% - 28px); }
+  .pcat-deco-1 { top: 14px; left: 14px; }
+}
 @media (max-width: 620px) {
-  .pcat-card {
-    grid-template-columns: 1fr;
-  }
+  .pcat-carousel-inner { padding: 0; }
+  .pcat-deco { display: none; }
+  .pcat-card { grid-template-columns: 1fr; }
   .pcat-visual {
     flex-direction: row;
     justify-content: flex-start;
     gap: 1rem;
     padding: 1.4rem 1.8rem;
     border-right: none;
-    border-bottom: 1px solid rgba(242, 162, 60, 0.18);
+    border-bottom: 1px solid rgba(242,162,60,0.18);
   }
-  .pcat-card--teal .pcat-visual {
-    border-bottom-color: rgba(67, 223, 208, 0.18);
-  }
-  .pcat-body {
-    padding: 1.6rem 1.8rem;
-  }
+  .pcat-card--teal .pcat-visual { border-bottom-color: rgba(67,223,208,0.18); }
+  .pcat-body { padding: 1.6rem 1.8rem; }
 }
 
 /* ---------- Scroll-driven showcase (3D tilt panel) ---------- */
