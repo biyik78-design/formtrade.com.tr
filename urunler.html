@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FORS | Ürün Galerisi — Menteşe Sistemleri</title>
+  <meta name="description" content="FORS gizli menteşe, hidrolik menteşe ve mobilya aksesuarları ürün galerisini inceleyin. 1977'den bu yana profesyonel mobilya sektörüne yönelik çözümler." />
+  <meta name="theme-color" content="#07090d" />
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <style>
+    /* ── Shared nav ── */
+    .page-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(6,6,9,.9); backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .page-nav-logo { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+    .page-nav-logo img { height: 28px; width: auto; }
+    .page-nav-logo span { font-family: "Sora", sans-serif; font-weight: 800; font-size: .9rem; color: var(--text); }
+    .page-nav-logo small { display: block; font-size: .65rem; font-weight: 400; color: var(--text-dim); font-family: "Inter", sans-serif; }
+    .lang-switch { display: flex; background: rgba(255,255,255,.06); border-radius: 999px; padding: 3px; }
+    .lang-switch button { font-weight: 700; font-size: .7rem; letter-spacing: .06em; border: none; background: none; color: var(--text-dim); padding: .35rem .75rem; border-radius: 999px; cursor: pointer; transition: background .2s, color .2s; }
+    .lang-switch button.active { background: var(--accent); color: #1a0f02; }
+
+    main { padding-top: 64px; }
+
+    /* ── Hero ── */
+    .prod-hero {
+      position: relative;
+      min-height: 72vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .prod-hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      filter: brightness(.55) saturate(.85);
+    }
+    .prod-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(7,9,13,.15) 0%,
+        rgba(7,9,13,.35) 45%,
+        rgba(7,9,13,.92) 100%
+      );
+    }
+    .prod-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: clamp(3rem,7vw,5rem) 0 clamp(3rem,6vw,4rem);
+    }
+    .prod-hero-content .badge { margin-bottom: 1.2rem; }
+    .prod-hero-content h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -.025em;
+      margin-bottom: 1.2rem;
+    }
+    .prod-hero-content p {
+      color: var(--text-dim);
+      font-size: clamp(.95rem,1.6vw,1.08rem);
+      line-height: 1.72;
+      max-width: 520px;
+      margin-bottom: 2rem;
+    }
+    .prod-hero-meta {
+      display: flex;
+      gap: 2.4rem;
+      flex-wrap: wrap;
+    }
+    .prod-hero-stat { }
+    .prod-hero-stat strong {
+      display: block;
+      font-size: clamp(1.6rem,3.5vw,2.4rem);
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -.02em;
+      font-family: "Sora", sans-serif;
+    }
+    .prod-hero-stat span {
+      font-size: .78rem;
+      color: var(--text-faint);
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    /* ── Featured large image ── */
+    .prod-featured {
+      padding: clamp(4rem,8vw,6rem) 0;
+    }
+    .prod-featured-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+    .prod-featured-main {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+    }
+    .prod-featured-main img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .7s var(--ease);
+    }
+    .prod-featured-main:hover img { transform: scale(1.04); }
+    .prod-tag {
+      position: absolute;
+      bottom: 1.2rem; left: 1.2rem;
+      display: inline-flex; align-items: center; gap: .45rem;
+      font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .45rem 1rem;
+      border-radius: 999px;
+      background: rgba(7,9,13,.75);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(242,162,60,.3);
+      color: var(--accent);
+    }
+    .prod-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+    .prod-featured-side {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .prod-featured-thumb {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .prod-featured-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .7s var(--ease);
+    }
+    .prod-featured-thumb:hover img { transform: scale(1.05); }
+    .prod-featured-thumb .prod-tag {
+      font-size: .66rem;
+      padding: .35rem .8rem;
+    }
+
+    /* White-bg photos: show on dark card with contain */
+    .prod-featured-thumb.on-dark {
+      background: radial-gradient(ellipse 80% 80% at 50% 50%, #1a1f2e 0%, #0a0d14 100%);
+    }
+    .prod-featured-thumb.on-dark img,
+    .prod-featured-main.on-dark img {
+      object-fit: contain;
+      padding: 6%;
+    }
+
+    /* ── Info strip below grid ── */
+    .prod-info-strip {
+      margin-top: 1.25rem;
+      padding: 1.8rem 2.4rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .prod-info-item { }
+    .prod-info-item strong {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-bottom: .25rem;
+      font-family: "Sora", sans-serif;
+    }
+    .prod-info-item span {
+      font-size: .8rem;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    /* ── Section: product families ── */
+    .prod-families {
+      padding: clamp(3rem,7vw,5rem) 0;
+    }
+    .prod-family-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.8rem;
+    }
+    .prod-family-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      overflow: hidden;
+      transition: border-color .35s var(--ease), box-shadow .35s var(--ease);
+    }
+    .prod-family-card:hover {
+      border-color: rgba(242,162,60,.35);
+      box-shadow: 0 0 30px -8px rgba(242,162,60,.3);
+    }
+    .prod-family-photo {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: var(--surface-2);
+    }
+    .prod-family-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .7s var(--ease);
+      filter: brightness(.88) saturate(.92);
+    }
+    .prod-family-card:hover .prod-family-photo img {
+      transform: scale(1.06);
+      filter: brightness(1) saturate(1);
+    }
+    .prod-family-photo.cutout {
+      background: radial-gradient(ellipse 90% 90% at 50% 50%, #1c2030 0%, #0a0d14 100%);
+    }
+    .prod-family-photo.cutout img {
+      object-fit: contain;
+      padding: 8%;
+      filter: none;
+    }
+    .prod-family-body {
+      padding: 1.6rem 1.8rem;
+    }
+    .prod-family-body .badge { margin-bottom: .85rem; }
+    .prod-family-body h3 {
+      font-size: 1.12rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: .7rem;
+      letter-spacing: -.01em;
+    }
+    .prod-family-body p {
+      color: var(--text-dim);
+      font-size: .88rem;
+      line-height: 1.65;
+      margin-bottom: 1.1rem;
+    }
+    .prod-family-chips { display: flex; flex-wrap: wrap; gap: .35rem; }
+    .prod-family-chip {
+      font-size: .68rem; font-weight: 600; letter-spacing: .03em;
+      padding: .22rem .62rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      color: var(--text-dim);
+    }
+
+    /* ── Dark hero showcase (FORS branded) ── */
+    .prod-dark-showcase {
+      padding: clamp(3rem,7vw,5rem) 0;
+    }
+    .prod-dark-inner {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      min-height: 440px;
+      display: flex;
+      align-items: center;
+    }
+    .prod-dark-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(.45) saturate(.7);
+    }
+    .prod-dark-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg,
+        rgba(7,9,13,.92) 0%,
+        rgba(7,9,13,.6) 55%,
+        rgba(7,9,13,.15) 100%
+      );
+    }
+    .prod-dark-content {
+      position: relative;
+      z-index: 2;
+      max-width: 540px;
+      padding: clamp(2.5rem,5vw,4rem);
+    }
+    .prod-dark-content .badge { margin-bottom: 1.2rem; }
+    .prod-dark-content h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.8rem,3.5vw,2.8rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -.02em;
+      margin-bottom: 1rem;
+    }
+    .prod-dark-content p {
+      color: var(--text-dim);
+      font-size: .96rem;
+      line-height: 1.72;
+      margin-bottom: 1.8rem;
+    }
+
+    /* ── CTA bottom ── */
+    .prod-cta {
+      padding: clamp(4rem,8vw,6rem) 0;
+      text-align: center;
+    }
+    .prod-cta h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.8rem,3.5vw,2.8rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .prod-cta p {
+      color: var(--text-dim);
+      max-width: 460px;
+      margin: 0 auto 2.2rem;
+      font-size: .96rem;
+      line-height: 1.72;
+    }
+    .prod-cta .btn-row {
+      display: flex; justify-content: center; gap: .9rem; flex-wrap: wrap;
+    }
+
+    .page-footer { background: var(--bg); border-top: 1px solid var(--border); padding: 2rem 0; text-align: center; }
+    .page-footer p { color: var(--text-dim); font-size: .82rem; }
+    .page-footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .prod-featured-grid { grid-template-columns: 1fr; }
+      .prod-featured-side { flex-direction: row; }
+      .prod-featured-thumb { flex: 1; }
+      .prod-family-grid { grid-template-columns: 1fr 1fr; }
+      .prod-info-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .prod-featured-side { flex-direction: column; }
+      .prod-family-grid { grid-template-columns: 1fr; }
+      .prod-info-strip { grid-template-columns: 1fr 1fr; }
+      .prod-hero-meta { gap: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="page-nav">
+    <div class="container">
+      <a href="index.html" class="page-nav-logo">
+        <img src="assets/img/fors-logo.png" alt="FORS" />
+        <span>FORM<small><span class="lang-tr">Tic. ve Sınai Ürünler</span><span class="lang-en">Commercial &amp; Industrial</span></small></span>
+      </a>
+      <div class="lang-switch">
+        <button data-lang="tr" type="button">TR</button>
+        <button data-lang="en" type="button">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section class="prod-hero">
+      <img
+        class="prod-hero-img"
+        src="assets/img/products/hinge-fors-dark-hero.jpg"
+        alt="FORS menteşe — stüdyo çekimi"
+        loading="eager"
+      />
+      <div class="prod-hero-overlay"></div>
+      <div class="prod-hero-content container">
+        <div class="badge reveal"><span class="dot"></span><span class="lang-tr">Ürün Galerisi</span><span class="lang-en">Product Gallery</span></div>
+        <h1 class="reveal">
+          <span class="lang-tr">FORS Menteşe<br><span class="gradient-text">Sistemleri</span></span>
+          <span class="lang-en">FORS Hinge<br><span class="gradient-text">Systems</span></span>
+        </h1>
+        <p class="reveal">
+          <span class="lang-tr">Soğuk dövme paslanmaz çelikten üretilen FORS menteşeleri; hassas form, dayanıklı yapı ve yumuşak kapanış teknolojisiyle mobilya endüstrisinin ilk tercihidir.</span>
+          <span class="lang-en">Cold-formed from stainless steel, FORS hinges are the first choice of the furniture industry for their precision form, durable construction and soft-close technology.</span>
+        </p>
+        <div class="prod-hero-meta reveal">
+          <div class="prod-hero-stat">
+            <strong>1977</strong>
+            <span><span class="lang-tr">Kuruluş</span><span class="lang-en">Founded</span></span>
+          </div>
+          <div class="prod-hero-stat">
+            <strong>50+</strong>
+            <span><span class="lang-tr">Ülkeye İhracat</span><span class="lang-en">Countries</span></span>
+          </div>
+          <div class="prod-hero-stat">
+            <strong>6</strong>
+            <span><span class="lang-tr">Menteşe Serisi</span><span class="lang-en">Hinge Series</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURED GALLERY ============ -->
+    <section class="prod-featured section">
+      <div class="container">
+        <div class="section-head">
+          <div class="badge"><span class="dot"></span><span class="lang-tr">Ürün Vitrini</span><span class="lang-en">Product Showcase</span></div>
+          <h2 class="reveal">
+            <span class="lang-tr">Mühendislik, her açıdan</span>
+            <span class="lang-en">Engineering, from every angle</span>
+          </h2>
+          <p class="desc reveal">
+            <span class="lang-tr">FORS menteşelerinin hassas üretim kalitesi, her detayda kendini gösterir.</span>
+            <span class="lang-en">The precision manufacturing quality of FORS hinges shows in every detail.</span>
+          </p>
+        </div>
+
+        <div class="prod-featured-grid reveal">
+
+          <!-- Main large photo -->
+          <div class="prod-featured-main">
+            <img
+              src="assets/img/products/hinge-installed-cabinet.jpg"
+              alt="FORS hidrolik menteşe — dolap uygulaması"
+              loading="lazy"
+              width="943" height="700"
+            />
+            <span class="prod-tag">
+              <span class="dot"></span>
+              <span class="lang-tr">Kurulum Görünümü</span><span class="lang-en">Installed View</span>
+            </span>
+          </div>
+
+          <!-- Side thumbnails -->
+          <div class="prod-featured-side">
+            <div class="prod-featured-thumb">
+              <img
+                src="assets/img/products/hinge-studio-dark.jpg"
+                alt="FORS menteşe — koyu stüdyo"
+                loading="lazy"
+                width="1000" height="1000"
+              />
+              <span class="prod-tag">
+                <span class="dot"></span>
+                <span class="lang-tr">Stüdyo Detay</span><span class="lang-en">Studio Detail</span>
+              </span>
+            </div>
+            <div class="prod-featured-thumb on-dark">
+              <img
+                src="assets/img/products/hinge-hydraulic-white.jpg"
+                alt="FORS hidrolik menteşe"
+                loading="lazy"
+                width="1000" height="1000"
+              />
+              <span class="prod-tag">
+                <span class="dot"></span>
+                <span class="lang-tr">Hidrolik Menteşe</span><span class="lang-en">Hydraulic Hinge</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info strip -->
+        <div class="prod-info-strip reveal">
+          <div class="prod-info-item">
+            <strong>Ø35mm</strong>
+            <span><span class="lang-tr">Standart kapak çapı</span><span class="lang-en">Standard cup diameter</span></span>
+          </div>
+          <div class="prod-info-item">
+            <strong>3D</strong>
+            <span><span class="lang-tr">Yön ayar sistemi</span><span class="lang-en">Axis adjustment</span></span>
+          </div>
+          <div class="prod-info-item">
+            <strong>165°</strong>
+            <span><span class="lang-tr">Maksimum açılma açısı</span><span class="lang-en">Max opening angle</span></span>
+          </div>
+          <div class="prod-info-item">
+            <strong>SS</strong>
+            <span><span class="lang-tr">Paslanmaz çelik gövde</span><span class="lang-en">Stainless steel body</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DARK HERO STRIP (FORS branded) ============ -->
+    <section class="prod-dark-showcase section-soft">
+      <div class="container">
+        <div class="prod-dark-inner reveal">
+          <img
+            class="prod-dark-img"
+            src="assets/img/products/hinge-fors-dark-hero.jpg"
+            alt="FORS markalı menteşe"
+            loading="lazy"
+          />
+          <div class="prod-dark-overlay"></div>
+          <div class="prod-dark-content">
+            <div class="badge"><span class="dot"></span><span class="lang-tr">FORS Markası</span><span class="lang-en">FORS Brand</span></div>
+            <h2>
+              <span class="lang-tr">Her üründe <span class="gradient-text">FORS güvencesi</span></span>
+              <span class="lang-en">Every product, <span class="gradient-text">FORS quality</span></span>
+            </h2>
+            <p>
+              <span class="lang-tr">Kasaya kazınan FORS logosu, sadece bir marka değil; 1977'den bu yana uluslararası standartlarda tutulan kalite taahhüdünün simgesidir.</span>
+              <span class="lang-en">The FORS logo engraved on every body is not just a brand — it is the symbol of a quality commitment held to international standards since 1977.</span>
+            </p>
+            <div class="btn-row" style="justify-content:flex-start">
+              <a href="hinge-3d-showcase.html" class="btn btn-primary">
+                <span class="lang-tr">Menteşeyi Keşfet</span><span class="lang-en">Explore the Hinge</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="13 5 20 12 13 19"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRODUCT FAMILIES ============ -->
+    <section class="prod-families section">
+      <div class="container">
+        <div class="section-head center">
+          <div class="badge"><span class="dot"></span><span class="lang-tr">Ürün Aileleri</span><span class="lang-en">Product Families</span></div>
+          <h2 class="reveal">
+            <span class="lang-tr">Her dolap için doğru menteşe</span>
+            <span class="lang-en">The right hinge for every cabinet</span>
+          </h2>
+          <p class="desc reveal">
+            <span class="lang-tr">Altı farklı seriden oluşan FORS menteşe yelpazesi, mobilya sektörünün tüm ihtiyaçlarını karşılar.</span>
+            <span class="lang-en">FORS's six-series hinge range covers every need in the furniture industry.</span>
+          </p>
+        </div>
+
+        <div class="prod-family-grid">
+
+          <!-- Card 1: Hidrolik -->
+          <div class="prod-family-card reveal">
+            <div class="prod-family-photo cutout">
+              <img
+                src="assets/img/products/hinge-hydraulic-white.jpg"
+                alt="FORS Hidrolik Menteşe"
+                loading="lazy" width="900" height="900"
+              />
+            </div>
+            <div class="prod-family-body">
+              <div class="badge"><span class="dot"></span><span class="lang-tr">Seri 01</span><span class="lang-en">Series 01</span></div>
+              <h3><span class="lang-tr">Hidrolik Menteşeler</span><span class="lang-en">Hydraulic Hinges</span></h3>
+              <p>
+                <span class="lang-tr">Entegre pistonlu yapı sayesinde kapakları otomatik olarak yumuşak ve sessiz kapatan seri. Düz, yarım deve ve süper deve boynu seçeneklidir.</span>
+                <span class="lang-en">Series that automatically closes doors softly and silently with an integrated piston. Available in straight, half-cranked and full-cranked variants.</span>
+              </p>
+              <div class="prod-family-chips">
+                <span class="prod-family-chip"><span class="lang-tr">Yumuşak Kapanış</span><span class="lang-en">Soft-Close</span></span>
+                <span class="prod-family-chip"><span class="lang-tr">Pistonlu</span><span class="lang-en">Piston</span></span>
+                <span class="prod-family-chip"><span class="lang-tr">3 Model</span><span class="lang-en">3 Models</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Tas (Standard) -->
+          <div class="prod-family-card reveal">
+            <div class="prod-family-photo cutout">
+              <img
+                src="assets/img/products/hinge-standard-white.jpg"
+                alt="FORS Tas Menteşe"
+                loading="lazy" width="900" height="900"
+              />
+            </div>
+            <div class="prod-family-body">
+              <div class="badge"><span class="dot"></span><span class="lang-tr">Seri 02</span><span class="lang-en">Series 02</span></div>
+              <h3><span class="lang-tr">Tas Menteşeler</span><span class="lang-en">Cup Hinges</span></h3>
+              <p>
+                <span class="lang-tr">Klasik Ø35mm tas yapısı ve klipsli duvar plakasıyla hızlı montaja uygun temel menteşe serisi. Her dolap tipi için güvenilir çözüm.</span>
+                <span class="lang-en">Standard hinge series with classic Ø35mm cup and clip-on mounting plate for quick installation. A reliable solution for any cabinet type.</span>
+              </p>
+              <div class="prod-family-chips">
+                <span class="prod-family-chip">Ø35mm</span>
+                <span class="prod-family-chip"><span class="lang-tr">Klipsli Plaka</span><span class="lang-en">Clip Plate</span></span>
+                <span class="prod-family-chip"><span class="lang-tr">3 Model</span><span class="lang-en">3 Models</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Installed / Lifestyle -->
+          <div class="prod-family-card reveal">
+            <div class="prod-family-photo">
+              <img
+                src="assets/img/products/hinge-installed-cabinet.jpg"
+                alt="FORS menteşe kurulum — dolap"
+                loading="lazy" width="930" height="698"
+              />
+            </div>
+            <div class="prod-family-body">
+              <div class="badge"><span class="dot"></span><span class="lang-tr">Uygulama</span><span class="lang-en">Application</span></div>
+              <h3><span class="lang-tr">Profesyonel Kurulum</span><span class="lang-en">Professional Installation</span></h3>
+              <p>
+                <span class="lang-tr">FORS menteşeleri, mobilya üreticilerinin ve montajcıların güvendiği hassas toleranslarla üretilir. Her kurulum, hızlı ve hataya kapalı bir deneyim sunar.</span>
+                <span class="lang-en">FORS hinges are manufactured to the precise tolerances trusted by furniture makers and installers. Every installation is fast and error-free.</span>
+              </p>
+              <div class="prod-family-chips">
+                <span class="prod-family-chip"><span class="lang-tr">Hızlı Montaj</span><span class="lang-en">Fast Install</span></span>
+                <span class="prod-family-chip">3D <span class="lang-tr">Ayar</span><span class="lang-en">Adjust</span></span>
+                <span class="prod-family-chip"><span class="lang-tr">Endüstriyel</span><span class="lang-en">Industrial</span></span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FULL-WIDTH STUDIO PHOTO ============ -->
+    <section class="prod-dark-showcase section-soft">
+      <div class="container">
+        <div class="prod-dark-inner reveal" style="min-height:360px">
+          <img
+            class="prod-dark-img"
+            src="assets/img/products/hinge-studio-dark.jpg"
+            alt="FORS menteşe stüdyo çekimi — koyu arkaplan"
+            loading="lazy"
+            style="object-position: center 55%;"
+          />
+          <div class="prod-dark-overlay" style="background: linear-gradient(90deg, rgba(7,9,13,.0) 0%, rgba(7,9,13,.5) 50%, rgba(7,9,13,.95) 100%)"></div>
+          <div class="prod-dark-content" style="margin-left: auto">
+            <div class="badge"><span class="dot"></span><span class="lang-tr">Üretim Kalitesi</span><span class="lang-en">Build Quality</span></div>
+            <h2>
+              <span class="lang-tr">Aynalı yüzey,<br><span class="gradient-text">milimetrik hassasiyet</span></span>
+              <span class="lang-en">Mirror finish,<br><span class="gradient-text">millimetre precision</span></span>
+            </h2>
+            <p>
+              <span class="lang-tr">Soğuk dövme ve hassas kalıp işlemeden geçen her FORS menteşesi, aynalı kaplama ile son bulur. Toleranslar, uzun ömürlü ve gürültüsüz bir hareket garanti eder.</span>
+              <span class="lang-en">Every FORS hinge passes through cold forging and precision die processing before receiving its mirror finish. Tolerances guarantee long-lasting, noise-free motion.</span>
+            </p>
+            <div class="btn-row" style="justify-content:flex-start">
+              <a href="index.html#contact" class="btn btn-outline">
+                <span class="lang-tr">Fiyat Teklifi Al</span><span class="lang-en">Request a Quote</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="prod-cta section">
+      <div class="container">
+        <div class="badge" style="justify-content:center;display:flex;margin-bottom:1.2rem">
+          <span class="dot"></span><span class="lang-tr">Hazır mısınız?</span><span class="lang-en">Ready to start?</span>
+        </div>
+        <h2 class="reveal">
+          <span class="lang-tr">Projeniz için doğru menteşeyi<br><span class="gradient-text">birlikte bulalım</span></span>
+          <span class="lang-en">Let's find the right hinge<br><span class="gradient-text">for your project</span></span>
+        </h2>
+        <p class="reveal">
+          <span class="lang-tr">Teknik ekibimiz, ihtiyacınıza uygun ürün seçiminde ve fiyatlandırmada size destek olmaktan memnuniyet duyar.</span>
+          <span class="lang-en">Our technical team is happy to help you choose the right product and provide pricing for your needs.</span>
+        </p>
+        <div class="btn-row reveal">
+          <a href="index.html#contact" class="btn btn-primary">
+            <span class="lang-tr">İletişime Geç</span><span class="lang-en">Get in Touch</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="13 5 20 12 13 19"/></svg>
+          </a>
+          <a href="hinge-3d-showcase.html" class="btn btn-outline">
+            <span class="lang-tr">3D Vitrin</span><span class="lang-en">3D Showcase</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="page-footer">
+    <div class="container">
+      <p>
+        © <span id="year"></span> Form Ticari ve Sınai Ürünler San. ve Dış Tic. A.Ş.
+        <span class="lang-tr"> · Tüm hakları saklıdır.</span><span class="lang-en"> · All rights reserved.</span>
+        &nbsp;·&nbsp;
+        <a href="index.html"><span class="lang-tr">Ana Sayfa</span><span class="lang-en">Home</span></a>
+        &nbsp;·&nbsp;
+        <a href="index.html#contact"><span class="lang-tr">İletişim</span><span class="lang-en">Contact</span></a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="assets/js/subpage.js"></script>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
