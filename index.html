@@ -990,6 +990,12 @@
             <span class="lang-tr">Ürünlerimiz, bayilik fırsatları veya teknik destek için bize ulaşın; ekibimiz en kısa sürede size dönüş yapsın.</span>
             <span class="lang-en">Reach out to us for our products, dealership opportunities or technical support; our team will get back to you as soon as possible.</span>
           </p>
+        </div><!-- /section-head -->
+
+        <!-- Globe: "global reach" görseli -->
+        <div class="cg-wrap" id="cgWrap" aria-hidden="true">
+          <canvas id="cg-whirl"></canvas>
+          <canvas id="cg-map"></canvas>
         </div>
 
         <div class="contact-grid reveal">
@@ -1513,6 +1519,113 @@ void main(){
     (function frame(ts) {
       const t = (ts - t0) / 1000;
       drawGlobe((t * 38) % 360);
+      drawWhirl(t);
+      requestAnimationFrame(frame);
+    })(t0);
+  })();
+  </script>
+
+  <script>
+  /* ---- Contact globe (Bize Yazın bölümü) ---- */
+  (function(){
+    if (typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
+    const mapCv   = document.getElementById('cg-map');
+    const whirlCv = document.getElementById('cg-whirl');
+    if (!mapCv || !whirlCv) return;
+
+    const SIZE = 240, CX = 120, CY = 120, R = 80;
+    const DPR  = Math.min(window.devicePixelRatio || 1, 2);
+    const OCEAN = '#0b0e19';
+    const LAND  = 'rgba(242,162,60,0.42)';
+    const FAINT = 'rgba(255,255,255,0.05)';
+    const INK   = 'rgba(242,162,60,0.80)';
+    const ARC   = 'rgba(242,162,60,';
+
+    function setup(cv) {
+      cv.width = SIZE * DPR; cv.height = SIZE * DPR;
+      const ctx = cv.getContext('2d');
+      ctx.scale(DPR, DPR); return ctx;
+    }
+    const gctx = setup(mapCv);
+    const wctx = setup(whirlCv);
+
+    const proj = d3.geoOrthographic().scale(R).translate([CX, CY]).clipAngle(90);
+    const path = d3.geoPath(proj, gctx);
+    const grat = d3.geoGraticule10();
+    let land = null, borders = null;
+
+    function drawGlobe(lambda) {
+      gctx.clearRect(0, 0, SIZE, SIZE);
+      proj.rotate([lambda, -18, 0]);
+      gctx.beginPath(); path({ type: 'Sphere' });
+      gctx.fillStyle = OCEAN; gctx.fill();
+      gctx.beginPath(); path(grat);
+      gctx.strokeStyle = FAINT; gctx.lineWidth = 0.5; gctx.stroke();
+      if (land)    { gctx.beginPath(); path(land);    gctx.fillStyle = LAND; gctx.fill(); }
+      if (borders) { gctx.beginPath(); path(borders); gctx.strokeStyle = OCEAN; gctx.lineWidth = 0.45; gctx.stroke(); }
+      gctx.beginPath(); path({ type: 'Sphere' });
+      gctx.strokeStyle = INK; gctx.lineWidth = 1.4; gctx.stroke();
+      const g = gctx.createRadialGradient(CX-20, CY-24, R*0.2, CX, CY, R);
+      g.addColorStop(0, 'rgba(242,162,60,0.08)');
+      g.addColorStop(0.6, 'rgba(0,0,0,0)');
+      g.addColorStop(1, 'rgba(0,0,0,0.5)');
+      gctx.save(); gctx.beginPath(); path({ type: 'Sphere' });
+      gctx.clip(); gctx.fillStyle = g; gctx.fillRect(0, 0, SIZE, SIZE);
+      gctx.restore();
+    }
+
+    const RING = R + 20, TILT = 0.42;
+    function drawArc(baseAng, span, rad, alpha, width) {
+      wctx.beginPath();
+      for (let i = 0; i <= 40; i++) {
+        const a = baseAng + (i / 40) * span;
+        const x = CX + Math.cos(a) * rad, y = CY + Math.sin(a) * rad * TILT;
+        i === 0 ? wctx.moveTo(x, y) : wctx.lineTo(x, y);
+      }
+      wctx.strokeStyle = ARC + alpha + ')';
+      wctx.lineWidth = width; wctx.lineCap = 'round'; wctx.stroke();
+    }
+    function drawWhirl(t) {
+      wctx.clearRect(0, 0, SIZE, SIZE);
+      wctx.save();
+      wctx.translate(CX, CY); wctx.rotate(-0.32); wctx.translate(-CX, -CY);
+      [
+        { off: 0.0, rad: RING,     span: 1.5, a: 0.60, w: 2.0 },
+        { off: 2.1, rad: RING + 8, span: 1.1, a: 0.32, w: 1.4 },
+        { off: 4.0, rad: RING - 10, span: 1.8, a: 0.18, w: 1.1 },
+      ].forEach((arc, k) => {
+        const speed = 1.7 - k * 0.25, base = t * speed + arc.off;
+        for (let s = 0; s < 6; s++) {
+          const frac = s / 6;
+          drawArc(base - frac * arc.span, arc.span / 6 * 1.2,
+                  arc.rad, arc.a * (1 - frac), arc.w * (1 - frac * 0.5));
+        }
+      });
+      for (let i = 0; i < 9; i++) {
+        const a = t * 1.9 + (i / 9) * Math.PI * 2;
+        const x = CX + Math.cos(a) * (RING + Math.sin(t * 1.3 + i) * 5);
+        const y = CY + Math.sin(a) * (RING + Math.sin(t * 1.3 + i) * 5) * TILT;
+        const depth = (Math.sin(a) + 1) / 2;
+        wctx.beginPath(); wctx.arc(x, y, 0.9 + depth * 1.8, 0, Math.PI * 2);
+        wctx.fillStyle = ARC + (0.28 + depth * 0.7) + ')'; wctx.fill();
+      }
+      wctx.restore();
+    }
+
+    fetch('https://unpkg.com/world-atlas@2.0.2/countries-110m.json')
+      .then(r => r.json())
+      .then(world => {
+        land    = topojson.feature(world, world.objects.countries);
+        borders = topojson.mesh(world, world.objects.countries, (a, b) => a !== b);
+        drawGlobe(0);
+      })
+      .catch(() => {});
+
+    drawGlobe(0); drawWhirl(0);
+    const t0 = performance.now();
+    (function frame(ts) {
+      const t = (ts - t0) / 1000;
+      drawGlobe((t * 34) % 360);
       drawWhirl(t);
       requestAnimationFrame(frame);
     })(t0);
