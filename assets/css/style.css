@@ -2292,3 +2292,43 @@ html.lang-en .lang-en.block { display: block; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .chip { min-width: 0; flex: 1 1 calc(50% - 0.5rem); }
 }
+
+/* ============================================================
+   Aura Field WebGL hero canvas
+   ============================================================ */
+#aura-gl {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: block;
+}
+
+/* Blobs replaced by Aura Field ambient glow */
+.blob { display: none; }
+
+/* Hero photos: dimmed so Aura Field's glow dominates */
+.hero-photo {
+  filter: brightness(0.18) saturate(0.6) grayscale(0.45);
+}
+
+/* ============================================================
+   Globe decoration (stats section)
+   ============================================================ */
+.globe-deco {
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 320px;
+  height: 320px;
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+}
+.globe-deco canvas {
+  position: absolute;
+  inset: 0;
+  width: 320px;
+  height: 320px;
+}
+@media (max-width: 980px) { .globe-deco { display: none; } }
