@@ -25,10 +25,15 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ---------- Mobile menu ---------- */
   const toggle = document.querySelector(".mobile-toggle");
   const mobileMenu = document.querySelector(".mobile-menu");
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.setAttribute("aria-controls", "mobileMenu");
+  mobileMenu.id = "mobileMenu";
   toggle.addEventListener("click", () => {
     toggle.classList.toggle("open");
     mobileMenu.classList.toggle("open");
-    document.body.style.overflow = mobileMenu.classList.contains("open") ? "hidden" : "";
+    const isOpen = mobileMenu.classList.contains("open");
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    document.body.style.overflow = isOpen ? "hidden" : "";
   });
   mobileMenu.querySelectorAll("a").forEach((a) => {
     a.addEventListener("click", () => {
@@ -58,14 +63,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- Language switch (TR / EN) ---------- */
   const langButtons = document.querySelectorAll("[data-lang]");
+
+  const TITLE_TR = "FORM | FORS Mobilya Donanımı — Menteşe, Gazlı Piston ve Aksesuarlar";
+  const TITLE_EN = "FORM | FORS Furniture Fittings — Hinges, Gas Lift Pistons & Accessories";
+  const DESC_TR =
+    "FORM Ticari ve Sınai Ürünler — 1977'den bu yana FORS markasıyla menteşe, gazlı piston ve mobilya aksesuarlarını Türkiye pazarına sunup 50'den fazla ülkeye ihraç ediyoruz.";
+  const DESC_EN =
+    "FORM Ticari ve Sınai Ürünler — Supplying hinges, gas lift pistons and furniture fittings under the FORS brand to the Turkish market since 1977, and exporting to 50+ countries.";
+
+  const CAROUSEL_LABELS_TR = ["Gazlı Pistonlar","Hidrolik Menteşeler","Tas Menteşeler","3D Menteşeler","Normal Dereceli Menteşeler","Hidrolik Dereceli Menteşeler","Mobilya Aksesuarları","Kapı Hidrolikleri","Bits Uçları & Setleri","Milwaukee Bits & Adaptörleri"];
+  const CAROUSEL_LABELS_EN = ["Gas Lift Pistons","Hydraulic Hinges","Cup Hinges","3D Hinges","Standard Angle Hinges","Hydraulic Angle Hinges","Furniture Accessories","Door Closers","Bits & Sets","Milwaukee Bits & Adaptors"];
+
   const setLang = (lang) => {
     document.documentElement.classList.toggle("lang-en", lang === "en");
     document.documentElement.lang = lang;
-    document.title = lang === "en" ? document.title.replace(/.*\| /, "") || document.title : document.title;
-    langButtons.forEach((btn) => btn.classList.toggle("active", btn.dataset.lang === lang));
+    langButtons.forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.lang === lang);
+      btn.setAttribute("aria-pressed", String(btn.dataset.lang === lang));
+    });
     localStorage.setItem("formtrade-lang", lang);
 
-    // swap input placeholders / titles
+    document.title = lang === "en" ? TITLE_EN : TITLE_TR;
+    document
+      .querySelector('meta[name="description"]')
+      .setAttribute("content", lang === "en" ? DESC_EN : DESC_TR);
+
+    // swap input placeholders
     document.querySelectorAll("[data-ph-tr]").forEach((el) => {
       el.setAttribute("placeholder", lang === "en" ? el.dataset.phEn : el.dataset.phTr);
     });
@@ -74,18 +97,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll("option[data-tr]").forEach((opt) => {
       opt.textContent = lang === "en" ? opt.dataset.en : opt.dataset.tr;
     });
-    document.title = lang === "en" ? TITLE_EN : TITLE_TR;
-    document
-      .querySelector('meta[name="description"]')
-      .setAttribute("content", lang === "en" ? DESC_EN : DESC_TR);
-  };
 
-  const TITLE_TR = "FORM | FORS Mobilya Donanımı — Menteşe, Gazlı Piston ve Aksesuarlar";
-  const TITLE_EN = "FORM | FORS Furniture Fittings — Hinges, Gas Lift Pistons & Accessories";
-  const DESC_TR =
-    "FORM Ticari ve Sınai Ürünler — 1977'den bu yana FORS markasıyla menteşe, gazlı piston ve mobilya aksesuarlarını Türkiye pazarına sunup 50'den fazla ülkeye ihraç ediyoruz.";
-  const DESC_EN =
-    "FORM Ticari ve Sınai Ürünler — Supplying hinges, gas lift pistons and furniture fittings under the FORS brand to the Turkish market since 1977, and exporting to 50+ countries.";
+    // update carousel dot aria-labels
+    const labels = lang === "en" ? CAROUSEL_LABELS_EN : CAROUSEL_LABELS_TR;
+    document.querySelectorAll(".pcat-dot").forEach((dot, i) => {
+      if (labels[i]) dot.setAttribute("aria-label", labels[i]);
+    });
+  };
 
   langButtons.forEach((btn) => {
     btn.addEventListener("click", () => setLang(btn.dataset.lang));
@@ -155,13 +173,18 @@ document.addEventListener("DOMContentLoaded", () => {
       tx = e.clientX;
       ty = e.clientY;
     });
+    let glowRafId;
     const loop = () => {
       gx += (tx - gx) * 0.12;
       gy += (ty - gy) * 0.12;
       glow.style.transform = `translate(${gx}px, ${gy}px) translate(-50%, -50%)`;
-      requestAnimationFrame(loop);
+      glowRafId = requestAnimationFrame(loop);
     };
     loop();
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) cancelAnimationFrame(glowRafId);
+      else { glowRafId = requestAnimationFrame(loop); }
+    });
 
     /* ---------- Magnetic buttons ---------- */
     document.querySelectorAll(".magnetic").forEach((btn) => {
@@ -234,16 +257,39 @@ document.addEventListener("DOMContentLoaded", () => {
   dashLines.forEach((el) => dashObserver.observe(el));
 
   /* ---------- Contact form ---------- */
+  // Replace FORMSPREE_FORM_ID with your Formspree endpoint (https://formspree.io)
+  const CONTACT_FORM_ENDPOINT = "https://formspree.io/f/FORMSPREE_FORM_ID";
+
   const form = document.querySelector(".contact-form");
   if (form) {
-    form.addEventListener("submit", (e) => {
+    const submitBtn = form.querySelector("[type=submit]");
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const formHead = form.parentElement.querySelector(".form-head");
       const success = form.parentElement.querySelector(".form-success");
-      form.classList.add("hide");
-      if (formHead) formHead.classList.add("hide");
-      success.classList.add("show");
-      form.reset();
+      const errorMsg = form.parentElement.querySelector(".form-error");
+
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        const res = await fetch(CONTACT_FORM_ENDPOINT, {
+          method: "POST",
+          headers: { "Accept": "application/json" },
+          body: new FormData(form),
+        });
+
+        if (res.ok) {
+          form.classList.add("hide");
+          if (formHead) formHead.classList.add("hide");
+          success.classList.add("show");
+          form.reset();
+        } else {
+          throw new Error("server");
+        }
+      } catch {
+        if (errorMsg) errorMsg.classList.add("show");
+        if (submitBtn) submitBtn.disabled = false;
+      }
     });
   }
 

@@ -17,6 +17,10 @@
 </head>
 <body>
 
+  <a href="#main-content" class="skip-nav">
+    <span class="lang-tr">İçeriğe geç</span><span class="lang-en">Skip to main content</span>
+  </a>
+
   <!-- ============ SVG ICON SPRITE ============ -->
   <svg style="display:none">
     <defs>
@@ -155,14 +159,14 @@
       </nav>
 
       <div class="header-actions">
-        <div class="lang-switch desktop-only">
-          <button data-lang="tr" type="button">TR</button>
-          <button data-lang="en" type="button">EN</button>
+        <div class="lang-switch desktop-only" role="group" aria-label="Dil seçimi / Language">
+          <button data-lang="tr" type="button" aria-pressed="true">TR</button>
+          <button data-lang="en" type="button" aria-pressed="false">EN</button>
         </div>
         <a href="https://bayi.formtrade.com.tr" target="_blank" rel="noopener" class="btn btn-outline btn-sm magnetic">
           <span class="lang-tr">Bayi Girişi</span><span class="lang-en">Dealer Login</span>
         </a>
-        <button class="mobile-toggle" type="button" aria-label="Menu">
+        <button class="mobile-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-haspopup="true">
           <svg class="icon-menu"><use href="#icon-menu"/></svg>
           <svg class="icon-close"><use href="#icon-close"/></svg>
         </button>
@@ -182,13 +186,13 @@
     <a href="https://bayi.formtrade.com.tr" target="_blank" rel="noopener" class="btn btn-outline btn-block">
       <span class="lang-tr">Bayi Girişi</span><span class="lang-en">Dealer Login</span>
     </a>
-    <div class="lang-switch">
-      <button data-lang="tr" type="button">TR</button>
-      <button data-lang="en" type="button">EN</button>
+    <div class="lang-switch" role="group" aria-label="Dil seçimi / Language">
+      <button data-lang="tr" type="button" aria-pressed="true">TR</button>
+      <button data-lang="en" type="button" aria-pressed="false">EN</button>
     </div>
   </div>
 
-  <main>
+  <main id="main-content">
     <!-- ============ HERO ============ -->
     <section class="hero" id="hero">
       <div class="hero-bg"></div>
@@ -1034,6 +1038,7 @@
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
                 title="FORM Ticari ve Sınai Ürünler — Konum"
+                sandbox="allow-scripts allow-same-origin"
               ></iframe>
             </div>
           </div>
@@ -1046,7 +1051,7 @@
                 <span class="lang-en">Fill out the form and we'll get back to you shortly.</span>
               </p>
             </div>
-            <form class="contact-form" autocomplete="off">
+            <form class="contact-form">
               <div class="form-row">
                 <div class="field">
                   <label><span class="lang-tr">Ad Soyad</span><span class="lang-en">Full Name</span></label>
@@ -1081,6 +1086,10 @@
                 <svg><use href="#icon-send"/></svg>
               </button>
             </form>
+            <div class="form-error" style="display:none;color:var(--accent);font-size:.9rem;padding:.75rem 0;">
+              <span class="lang-tr">Bir hata oluştu. Lütfen tekrar deneyin veya bizi doğrudan arayın.</span>
+              <span class="lang-en">Something went wrong. Please try again or contact us directly.</span>
+            </div>
             <div class="form-success">
               <div class="icon-circle"><svg><use href="#icon-check"/></svg></div>
               <h3><span class="lang-tr">Mesajınız Alındı!</span><span class="lang-en">Message Received!</span></h3>

@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr"
+  data-title-tr="FORM | E-Bülten — Sektör Haberlerinden Haberdar Olun"
+  data-title-en="FORM | Newsletter — Stay Ahead of the Industry"
+  data-desc-tr="FORM e-bültenine abone olun. Yeni ürünler, sektör yenilikleri ve kampanyaları ilk siz öğrenin."
+  data-desc-en="Subscribe to the FORM newsletter. Be the first to hear about new products, industry updates and campaigns."
+>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -166,7 +171,7 @@
             <div class="nl-perk"><span class="pdot"></span><span class="lang-tr">Teknik Rehberler</span><span class="lang-en">Technical Guides</span></div>
           </div>
 
-          <form class="nl-form-wrap reveal" id="nlForm" onsubmit="handleSubscribe(event)">
+          <form class="nl-form-wrap reveal" id="nlForm">
             <input type="email" id="nlEmail" required
               placeholder="E-posta adresiniz / Your email" />
             <button type="submit">
@@ -206,13 +211,31 @@
 
   <script src="assets/js/subpage.js"></script>
   <script>
-    function handleSubscribe(e) {
+    // Replace FORMSPREE_NEWSLETTER_ID with your Formspree endpoint (https://formspree.io)
+    const NL_ENDPOINT = "https://formspree.io/f/FORMSPREE_NEWSLETTER_ID";
+
+    document.getElementById("nlForm").addEventListener("submit", async function(e) {
       e.preventDefault();
-      const form = document.getElementById("nlForm");
+      const btn = this.querySelector("button[type=submit]");
       const success = document.getElementById("nlSuccess");
-      form.style.display = "none";
-      success.classList.add("show");
-    }
+      if (btn) btn.disabled = true;
+      try {
+        const res = await fetch(NL_ENDPOINT, {
+          method: "POST",
+          headers: { "Accept": "application/json" },
+          body: new FormData(this),
+        });
+        if (res.ok) {
+          this.style.display = "none";
+          success.classList.add("show");
+        } else {
+          throw new Error("server");
+        }
+      } catch {
+        if (btn) btn.disabled = false;
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.\nSomething went wrong. Please try again.");
+      }
+    });
   </script>
 </body>
 </html>

@@ -8,13 +8,24 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ---------- Language switch ---------- */
   const langButtons = document.querySelectorAll("[data-lang]");
 
+  const root = document.documentElement;
+
   const setLang = (lang) => {
     const isEn = lang === "en";
-    document.documentElement.classList.toggle("lang-en", isEn);
-    document.documentElement.lang = lang;
-    langButtons.forEach((btn) =>
-      btn.classList.toggle("active", btn.dataset.lang === lang)
-    );
+    root.classList.toggle("lang-en", isEn);
+    root.lang = lang;
+    langButtons.forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.lang === lang);
+      btn.setAttribute("aria-pressed", String(btn.dataset.lang === lang));
+    });
+
+    // update <title> and meta description if data attributes are present
+    const titleKey = isEn ? "titleEn" : "titleTr";
+    const descKey  = isEn ? "descEn"  : "descTr";
+    if (root.dataset[titleKey]) document.title = root.dataset[titleKey];
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc && root.dataset[descKey]) metaDesc.setAttribute("content", root.dataset[descKey]);
+
     try { localStorage.setItem("formtrade-lang", lang); } catch (e) {}
   };
 
