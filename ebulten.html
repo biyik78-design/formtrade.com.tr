@@ -172,6 +172,7 @@
           </div>
 
           <form class="nl-form-wrap reveal" id="nlForm">
+            <input type="hidden" name="_subject" value="formtrade.com.tr — Yeni E-Bülten Aboneliği" />
             <input type="email" id="nlEmail" required
               placeholder="E-posta adresiniz / Your email" />
             <button type="submit">
@@ -211,8 +212,7 @@
 
   <script src="assets/js/subpage.js"></script>
   <script>
-    // Replace FORMSPREE_NEWSLETTER_ID with your Formspree endpoint (https://formspree.io)
-    const NL_ENDPOINT = "https://formspree.io/f/FORMSPREE_NEWSLETTER_ID";
+    const NL_ENDPOINT = "https://formsubmit.co/ajax/biyik78@gmail.com";
 
     document.getElementById("nlForm").addEventListener("submit", async function(e) {
       e.preventDefault();
@@ -222,8 +222,8 @@
       try {
         const res = await fetch(NL_ENDPOINT, {
           method: "POST",
-          headers: { "Accept": "application/json" },
-          body: new FormData(this),
+          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify(Object.fromEntries(new FormData(this))),
         });
         if (res.ok) {
           this.style.display = "none";

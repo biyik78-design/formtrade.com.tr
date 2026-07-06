@@ -257,8 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
   dashLines.forEach((el) => dashObserver.observe(el));
 
   /* ---------- Contact form ---------- */
-  // Replace FORMSPREE_FORM_ID with your Formspree endpoint (https://formspree.io)
-  const CONTACT_FORM_ENDPOINT = "https://formspree.io/f/FORMSPREE_FORM_ID";
+  const CONTACT_FORM_ENDPOINT = "https://formsubmit.co/ajax/biyik78@gmail.com";
 
   const form = document.querySelector(".contact-form");
   if (form) {
@@ -274,8 +273,8 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         const res = await fetch(CONTACT_FORM_ENDPOINT, {
           method: "POST",
-          headers: { "Accept": "application/json" },
-          body: new FormData(form),
+          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify(Object.fromEntries(new FormData(form))),
         });
 
         if (res.ok) {
