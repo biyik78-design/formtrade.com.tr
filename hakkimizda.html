@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="tr"
+  data-title-tr="FORM | Hakkımızda — 48 Yıllık Tecrübe ve Güven"
+  data-title-en="FORM | About Us — 48 Years of Trust"
+  data-desc-tr="1977'den bu yana mobilya aksesuarları ve hırdavat sektöründe faaliyet gösteren FORM hakkında bilgi edinin."
+  data-desc-en="Learn about FORM, operating in the furniture accessories and hardware sector since 1977."
+>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FORM | Hakkımızda — 48 Yıllık Tecrübe ve Güven</title>
+  <meta name="description" content="1977'den bu yana mobilya aksesuarları ve hırdavat sektöründe faaliyet gösteren FORM hakkında bilgi edinin. Misyon, vizyon, değerlerimiz ve 48 yıllık yolculuğumuz." />
+  <meta name="theme-color" content="#060609" />
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <style>
+    /* ── Shared sub-page chrome ── */
+    .page-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(6,6,9,.88); backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .page-nav-logo { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+    .page-nav-logo img { height: 28px; width: auto; }
+    .page-nav-logo span { font-family: "Sora", sans-serif; font-weight: 800; font-size: .9rem; color: var(--text); }
+    .page-nav-logo small { display: block; font-size: .65rem; font-weight: 400; color: var(--text-dim); font-family: "Inter", sans-serif; }
+    .lang-switch { display: flex; background: rgba(255,255,255,.06); border-radius: 999px; padding: 3px; }
+    .lang-switch button { font-weight: 700; font-size: .7rem; letter-spacing: .06em; border: none; background: none; color: var(--text-dim); padding: .35rem .75rem; border-radius: 999px; cursor: pointer; transition: background .2s, color .2s; }
+    .lang-switch button.active { background: var(--accent); color: #1a0f02; }
+
+    .page-subnav {
+      position: fixed; top: 64px; left: 0; right: 0; z-index: 99;
+      background: rgba(6,6,9,.92); backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-subnav .container { display: flex; height: 44px; align-items: center; overflow-x: auto; gap: 0; }
+    .page-subnav a {
+      padding: 0 1.2rem; height: 44px; display: flex; align-items: center;
+      font-size: .8rem; font-weight: 600; color: var(--text-dim);
+      text-decoration: none; white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color .2s, border-color .2s;
+    }
+    .page-subnav a:hover { color: var(--text); border-color: rgba(242,162,60,.4); }
+    .page-subnav a.active { color: var(--text); border-color: var(--accent); }
+
+    .page-footer { background: var(--bg); border-top: 1px solid var(--border); padding: 2rem 0; text-align: center; }
+    .page-footer p { color: var(--text-dim); font-size: .82rem; }
+    .page-footer a { color: var(--accent); text-decoration: none; }
+
+    main { padding-top: 108px; }
+
+    /* ── Hero ── */
+    .ab-hero { padding: clamp(4rem, 10vw, 8rem) 0 clamp(3.5rem, 8vw, 6rem); border-bottom: 1px solid var(--border); }
+    .ab-hero-eyebrow { display: inline-flex; align-items: center; gap: .5rem; font-size: .78rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.4rem; }
+    .ab-hero h1 { font-family: "Sora", sans-serif; font-size: clamp(2.4rem, 5.5vw, 4.2rem); font-weight: 800; line-height: 1.08; letter-spacing: -.02em; margin-bottom: 1.8rem; }
+    .ab-hero-body { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); max-width: 880px; }
+    .ab-hero-body p { color: var(--text-dim); font-size: clamp(.96rem, 1.4vw, 1.06rem); line-height: 1.75; }
+
+    /* ── Mission / Vision ── */
+    .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .mv-card { padding: 2.4rem 2.6rem; border-radius: var(--radius-md); background: rgba(255,255,255,.018); border: 1px solid var(--border); }
+    .mv-card .mv-label { font-size: .72rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .mv-card h3 { font-family: "Sora", sans-serif; font-size: clamp(1.3rem, 2.2vw, 1.7rem); font-weight: 800; margin-bottom: 1rem; line-height: 1.25; }
+    .mv-card p { color: var(--text-dim); font-size: .96rem; line-height: 1.7; }
+
+    /* ── Values ── */
+    .values-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; margin-top: 2.5rem; }
+    .value-chip { display: flex; align-items: center; gap: .7rem; padding: 1rem 1.4rem; border-radius: var(--radius-sm, 8px); background: rgba(255,255,255,.02); border: 1px solid var(--border); font-size: .92rem; font-weight: 600; transition: background .3s ease, border-color .3s ease; }
+    .value-chip:hover { background: rgba(255,255,255,.04); border-color: var(--border-strong); }
+    .value-chip .vdot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+    /* ── Timeline ── */
+    .timeline { position: relative; padding-left: 2.2rem; margin-top: 2.5rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--accent), transparent); }
+    .tl-item { position: relative; padding-bottom: 2.4rem; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-dot { position: absolute; left: -2.65rem; top: .3rem; width: 10px; height: 10px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+    .tl-item.highlight .tl-dot { background: var(--accent); box-shadow: 0 0 0 4px rgba(242,162,60,.15); }
+    .tl-year { font-size: .78rem; font-weight: 700; letter-spacing: .12em; color: var(--accent); margin-bottom: .35rem; }
+    .tl-item h4 { font-size: 1rem; font-weight: 700; margin-bottom: .3rem; }
+    .tl-item p { color: var(--text-dim); font-size: .9rem; line-height: 1.65; }
+
+    /* ── Quality ── */
+    .quality-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem; }
+    .quality-block p { color: var(--text-dim); line-height: 1.78; font-size: .96rem; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .ab-hero-body, .mv-grid, .quality-grid { grid-template-columns: 1fr; }
+      .timeline { padding-left: 1.6rem; }
+      .tl-dot { left: -2rem; }
+    }
+    @media (max-width: 480px) {
+      .values-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+  </svg>
+
+  <!-- NAV -->
+  <nav class="page-nav">
+    <div class="container">
+      <a href="index.html" class="page-nav-logo">
+        <img src="assets/img/fors-logo.png" alt="FORS" />
+        <span>FORM<small><span class="lang-tr">Tic. ve Sınai Ürünler</span><span class="lang-en">Commercial &amp; Industrial</span></small></span>
+      </a>
+      <div class="lang-switch">
+        <button data-lang="tr" type="button">TR</button>
+        <button data-lang="en" type="button">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SUB-NAV -->
+  <div class="page-subnav">
+    <div class="container">
+      <a href="hakkimizda.html" class="active"><span class="lang-tr">Hakkımızda</span><span class="lang-en">About</span></a>
+      <a href="ik.html"><span class="lang-tr">İnsan Kaynakları</span><span class="lang-en">Careers</span></a>
+      <a href="kvkk.html">KVKK</a>
+      <a href="ebulten.html"><span class="lang-tr">E-Bülten</span><span class="lang-en">Newsletter</span></a>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="ab-hero section-soft">
+      <div class="container">
+        <p class="ab-hero-eyebrow"><span class="lang-tr">FORM Ticari ve Sınai Ürünler</span><span class="lang-en">FORM Commercial &amp; Industrial Products</span></p>
+        <h1 class="reveal">
+          <span class="lang-tr">48 Yıllık Güven.<br>Binlerce Ürün.<br>Milyonlarca Çözüm.</span>
+          <span class="lang-en">59 Years of Trust.<br>Thousands of Products.<br>Millions of Solutions.</span>
+        </h1>
+        <div class="ab-hero-body reveal">
+          <p>
+            <span class="lang-tr">1977 yılından bu yana mobilya aksesuarları ve hırdavat sektöründe faaliyet gösteren FORM, dünyanın önde gelen üreticileri ile Türkiye pazarı arasında güçlü bir köprü kurmaktadır.</span>
+            <span class="lang-en">FORM has been building a strong bridge between the world's leading manufacturers and the Turkish market since 1977, operating in the furniture accessories and hardware industry.</span>
+          </p>
+          <p>
+            <span class="lang-tr">Kalite, süreklilik ve güvenilir tedarik anlayışıyla; mobilya üreticilerine, bayilere ve profesyonellere yenilikçi ürünler sunuyor, sektörün gelişimine katkı sağlıyoruz.</span>
+            <span class="lang-en">With a commitment to quality, continuity and reliable supply, we offer innovative products to furniture manufacturers, dealers and professionals, contributing to the development of the industry.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HAKKIMIZDA -->
+    <section class="section" id="hakkimizda">
+      <div class="container">
+        <div class="section-head">
+          <div class="badge"><span class="dot"></span><span class="lang-tr">Hakkımızda</span><span class="lang-en">About Us</span></div>
+          <h2 class="reveal"><span class="lang-tr">48 Yıllık Köklü Bir Kuruluş</span><span class="lang-en">A Company With 59 Years of Heritage</span></h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-content" style="max-width:none;">
+            <p class="desc reveal">
+              <span class="lang-tr">FORM Dış Ticaret A.Ş., 1977 yılından bu yana mobilya aksesuarları ve hırdavat sektöründe faaliyet gösteren Türkiye'nin köklü kuruluşlarından biridir.</span>
+              <span class="lang-en">FORM Dış Ticaret A.Ş. is one of Turkey's most established companies, operating in the furniture accessories and hardware industry since 1977.</span>
+            </p>
+            <p class="desc reveal" style="margin-top:1rem;">
+              <span class="lang-tr">48 yıllık sektör deneyimimiz boyunca, dünya çapında güvenilir üreticilerle iş birlikleri kurarak müşterilerimize yüksek kalite standartlarında ürünler sunmayı ilke edindik. Güçlü lojistik altyapımız, yaygın bayi ağımız ve müşteri odaklı yaklaşımımız sayesinde sektörün öncü firmalarından biri olmayı başardık.</span>
+              <span class="lang-en">Throughout 59 years of industry experience, we have established partnerships with trusted manufacturers worldwide and made it our principle to offer products at the highest quality standards. Thanks to our strong logistics infrastructure, widespread dealer network and customer-focused approach, we have become one of the leading companies in the industry.</span>
+            </p>
+            <p class="desc reveal" style="margin-top:1rem;">
+              <span class="lang-tr">Bugün FORM; menteşe sistemleri, çekmece rayları, sürme kapak mekanizmaları, gazlı pistonlar, bağlantı elemanları ve çeşitli mobilya aksesuarlarında geniş ürün yelpazesiyle hizmet vermektedir.</span>
+              <span class="lang-en">Today FORM serves with a wide product range in hinge systems, drawer slides, sliding door mechanisms, gas pistons, fasteners and various furniture accessories.</span>
+            </p>
+            <p class="desc reveal" style="margin-top:1rem;">
+              <span class="lang-tr">Müşterilerimizin başarısını kendi başarımız olarak görüyor; kalite, güven ve sürdürülebilir iş ortaklıkları üzerine kurulu yaklaşımımızla sektöre değer katmaya devam ediyoruz.</span>
+              <span class="lang-en">We see our customers' success as our own success, and we continue to add value to the industry with an approach built on quality, trust and sustainable business partnerships.</span>
+            </p>
+          </div>
+          <div class="about-visual reveal">
+            <div class="frame" style="min-height:280px;">
+              <div class="mini-card"><span style="font-size:1.5rem;font-family:Sora;font-weight:800;color:var(--accent)">1977</span><span class="lang-tr">Kuruluş Yılı</span><span class="lang-en">Founded</span></div>
+              <div class="mini-card"><span style="font-size:1.5rem;font-family:Sora;font-weight:800;color:var(--accent)">59+</span><span class="lang-tr">Yıl Deneyim</span><span class="lang-en">Years' Experience</span></div>
+              <div class="mini-card"><span style="font-size:1.5rem;font-family:Sora;font-weight:800;color:var(--accent)">50+</span><span class="lang-tr">İhracat Ülkesi</span><span class="lang-en">Export Countries</span></div>
+              <div class="mini-card"><span style="font-size:1.5rem;font-family:Sora;font-weight:800;color:var(--accent)">1000+</span><span class="lang-tr">Ürün Çeşidi</span><span class="lang-en">Product Types</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MİSYON & VİZYON -->
+    <section class="section section-soft" id="misyon-vizyon">
+      <div class="container">
+        <div class="section-head">
+          <div class="badge"><span class="dot"></span><span class="lang-tr">Misyon &amp; Vizyon</span><span class="lang-en">Mission &amp; Vision</span></div>
+        </div>
+        <div class="mv-grid">
+          <div class="mv-card reveal">
+            <p class="mv-label"><span class="lang-tr">Misyon</span><span class="lang-en">Mission</span></p>
+            <h3><span class="lang-tr">Güvenilir Tedarik, Sürdürülebilir Değer</span><span class="lang-en">Reliable Supply, Sustainable Value</span></h3>
+            <p>
+              <span class="lang-tr">Müşterilerimize güvenilir, kaliteli ve yenilikçi ürünler sunarak sektörün gelişimine katkıda bulunmak; güçlü tedarik zincirimiz ve uzman ekibimizle sürdürülebilir değer üretmek.</span>
+              <span class="lang-en">To contribute to the development of the industry by offering our customers reliable, high-quality and innovative products; to create sustainable value with our strong supply chain and expert team.</span>
+            </p>
+          </div>
+          <div class="mv-card reveal">
+            <p class="mv-label"><span class="lang-tr">Vizyon</span><span class="lang-en">Vision</span></p>
+            <h3><span class="lang-tr">Bölgenin En Güvenilir Tedarikçisi</span><span class="lang-en">The Region's Most Trusted Supplier</span></h3>
+            <p>
+              <span class="lang-tr">Türkiye'nin ve bölgesinin en güvenilir mobilya aksesuarları tedarikçilerinden biri olarak, sektöre yön veren çözümler geliştirmek ve global iş ortaklıklarımızla büyümeye devam etmek.</span>
+              <span class="lang-en">To be one of Turkey's and the region's most trusted furniture accessories suppliers, developing industry-leading solutions and continuing to grow with our global business partnerships.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEĞERLERİMİZ -->
+    <section class="section" id="degerlerimiz">
+      <div class="container">
+        <div class="section-head">
+          <div class="badge"><span class="dot"></span><span class="lang-tr">Değerlerimiz</span><span class="lang-en">Our Values</span></div>
+          <h2 class="reveal"><span class="lang-tr">Temel İlkelerimiz</span><span class="lang-en">Our Core Principles</span></h2>
+        </div>
+        <div class="values-grid reveal-stagger">
+          <div class="value-chip"><span class="vdot"></span><span class="lang-tr">Güvenilirlik</span><span class="lang-en">Reliability</span></div>
+          <div class="value-chip"><span class="vdot"></span><span class="lang-tr">Kalite Odaklılık</span><span class="lang-en">Quality Focus</span></div>
+          <div class="value-chip"><span class="vdot"></span><span class="lang-tr">Müşteri Memnuniyeti</span><span class="lang-en">Customer Satisfaction</span></div>
+          <div class="value-chip"><span class="vdot"></span><span class="lang-tr">Sürekli Gelişim</span><span class="lang-en">Continuous Improvement</span></div>
+          <div class="value-chip"><span class="vdot"></span><span class="lang-tr">Yenilikçilik</span><span class="lang-en">Innovation</span></div>
+          <div class="value-chip"><span class="vdot"></span><span class="lang-tr">Etik Ticaret</span><span class="lang-en">Ethical Trade</span></div>
+          <div class="value-chip"><span class="vdot"></span><span class="lang-tr">Sürdürülebilir İş Ortaklıkları</span><span class="lang-en">Sustainable Partnerships</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TARİHÇE -->
+    <section class="section section-soft" id="tarihce">
+      <div class="container">
+        <div class="section-head">
+          <div class="badge"><span class="dot"></span><span class="lang-tr">Tarihçemiz</span><span class="lang-en">Our History</span></div>
+          <h2 class="reveal"><span class="lang-tr">48 Yıllık Yolculuğumuz</span><span class="lang-en">Our 48-Year Journey</span></h2>
+          <p class="desc reveal"><span class="lang-tr">1977'den bugüne sektörde iz bırakan kilometre taşlarımız.</span><span class="lang-en">Our milestones that have shaped the industry since 1977.</span></p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 4rem;max-width:860px;">
+          <div class="timeline reveal">
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <p class="tl-year">1977</p>
+              <h4><span class="lang-tr">Kuruluş</span><span class="lang-en">Foundation</span></h4>
+              <p><span class="lang-tr">FORM'un temelleri atıldı.</span><span class="lang-en">FORM was established.</span></p>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <p class="tl-year"><span class="lang-tr">1980'ler</span><span class="lang-en">1980s</span></p>
+              <h4><span class="lang-tr">Yaygınlaşma</span><span class="lang-en">Expansion</span></h4>
+              <p><span class="lang-tr">Türkiye genelinde bayi ağı güçlendirildi.</span><span class="lang-en">Dealer network across Turkey was strengthened.</span></p>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <p class="tl-year"><span class="lang-tr">1990'lar</span><span class="lang-en">1990s</span></p>
+              <h4><span class="lang-tr">Global Açılım</span><span class="lang-en">Global Outreach</span></h4>
+              <p><span class="lang-tr">Uluslararası tedarik ağı genişletildi.</span><span class="lang-en">International supply network was expanded.</span></p>
+            </div>
+          </div>
+          <div class="timeline reveal">
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <p class="tl-year">2012</p>
+              <h4><span class="lang-tr">Üretim Yatırımı</span><span class="lang-en">Production Investment</span></h4>
+              <p><span class="lang-tr">Yerli üretim yatırımlarıyla sektöre yeni bir ivme kazandırıldı.</span><span class="lang-en">New momentum was added to the industry through local production investments.</span></p>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <p class="tl-year">2020</p>
+              <h4><span class="lang-tr">Dijital Dönüşüm</span><span class="lang-en">Digital Transformation</span></h4>
+              <p><span class="lang-tr">Dijital dönüşüm ve bayi iletişim süreçleri güçlendirildi.</span><span class="lang-en">Digital transformation and dealer communication processes were strengthened.</span></p>
+            </div>
+            <div class="tl-item highlight">
+              <div class="tl-dot"></div>
+              <p class="tl-year">2026</p>
+              <h4><span class="lang-tr">Bugün</span><span class="lang-en">Today</span></h4>
+              <p><span class="lang-tr">FORM, 59. yılında FORS markasıyla yenilikçi ürün vizyonunu ileri taşımaya devam ediyor.</span><span class="lang-en">In its 59th year, FORM continues to advance its innovative product vision under the FORS brand.</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEDEN FORM? -->
+    <section class="section" id="neden-form">
+      <div class="container">
+        <div class="section-head center">
+          <div class="badge"><span class="dot"></span><span class="lang-tr">Neden FORM?</span><span class="lang-en">Why FORM?</span></div>
+          <h2 class="reveal"><span class="lang-tr">Fark Yaratan Beş Güç</span><span class="lang-en">Five Differentiating Strengths</span></h2>
+        </div>
+        <div class="features-grid reveal-stagger">
+          <div class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="22" height="22"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <h3><span class="lang-tr">48 Yıllık Tecrübe</span><span class="lang-en">59 Years of Experience</span></h3>
+            <p><span class="lang-tr">Yarım asrı aşan sektör bilgisi ve deneyimi.</span><span class="lang-en">More than half a century of industry knowledge and experience.</span></p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="22" height="22"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <h3><span class="lang-tr">Güvenilir Tedarik Zinciri</span><span class="lang-en">Reliable Supply Chain</span></h3>
+            <p><span class="lang-tr">Dünyanın farklı bölgelerindeki üreticilerle güçlü iş ortaklıkları.</span><span class="lang-en">Strong business partnerships with manufacturers across different regions of the world.</span></p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="22" height="22"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+            <h3><span class="lang-tr">Geniş Ürün Yelpazesi</span><span class="lang-en">Wide Product Range</span></h3>
+            <p><span class="lang-tr">Mobilya aksesuarlarında binlerce ürün seçeneği.</span><span class="lang-en">Thousands of product options in furniture accessories.</span></p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="22" height="22"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <h3><span class="lang-tr">Yüksek Stok Gücü</span><span class="lang-en">High Stock Capacity</span></h3>
+            <p><span class="lang-tr">Hızlı teslimat ve kesintisiz tedarik.</span><span class="lang-en">Fast delivery and uninterrupted supply.</span></p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><svg><use href="#icon-shield"/></svg></div>
+            <h3><span class="lang-tr">Satış Sonrası Destek</span><span class="lang-en">After-Sales Support</span></h3>
+            <p><span class="lang-tr">Uzun vadeli müşteri memnuniyeti odaklı hizmet anlayışı.</span><span class="lang-en">A service approach focused on long-term customer satisfaction.</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KALİTE VE GÜVEN -->
+    <section class="section section-soft" id="kalite">
+      <div class="container">
+        <div class="section-head">
+          <div class="badge"><span class="dot"></span><span class="lang-tr">Kalite ve Güven</span><span class="lang-en">Quality &amp; Trust</span></div>
+          <h2 class="reveal"><span class="lang-tr">Uçtan Uca Kalite Yönetimi</span><span class="lang-en">End-to-End Quality Management</span></h2>
+        </div>
+        <div class="quality-grid">
+          <div class="quality-block reveal">
+            <p>
+              <span class="lang-tr">FORM olarak ürün seçiminden lojistiğe, satıştan satış sonrası desteğe kadar tüm süreçlerimizi kalite odaklı yönetiyoruz.</span>
+              <span class="lang-en">At FORM, we manage all our processes quality-focused, from product selection to logistics, from sales to after-sales support.</span>
+            </p>
+          </div>
+          <div class="quality-block reveal">
+            <p>
+              <span class="lang-tr">Müşterilerimizin beklentilerini karşılamakla yetinmiyor, uzun vadeli iş ortaklıkları kurarak sürdürülebilir başarı sağlıyoruz. Kaliteye olan bağlılığımız, sektördeki güvenilirliğimizin temelini oluşturmaktadır.</span>
+              <span class="lang-en">We don't just meet our customers' expectations; we establish long-term business partnerships to ensure sustainable success. Our commitment to quality forms the foundation of our credibility in the industry.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="page-footer">
+    <div class="container">
+      <p>
+        © <span id="year"></span> Form Ticari ve Sınai Ürünler San. ve Dış Tic. A.Ş.
+        <span class="lang-tr"> · Tüm hakları saklıdır.</span><span class="lang-en"> · All rights reserved.</span>
+        &nbsp;·&nbsp;
+        <a href="index.html"><span class="lang-tr">Ana Sayfa</span><span class="lang-en">Home</span></a>
+        &nbsp;·&nbsp;
+        <a href="index.html#contact"><span class="lang-tr">İletişim</span><span class="lang-en">Contact</span></a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="assets/js/subpage.js"></script>
+</body>
+</html>

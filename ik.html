@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="tr"
+  data-title-tr="FORM | İnsan Kaynakları — FORM Ailesine Katılın"
+  data-title-en="FORM | Careers — Join the FORM Family"
+  data-desc-tr="FORM Ticari ve Sınai Ürünler bünyesinde kariyer fırsatları. Güçlü ekip kültürümüz ve kariyer gelişim imkânları hakkında bilgi edinin."
+  data-desc-en="Career opportunities at FORM Ticari ve Sınai Ürünler. Learn about our team culture and development opportunities."
+>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FORM | İnsan Kaynakları — FORM Ailesine Katılın</title>
+  <meta name="description" content="FORM Ticari ve Sınai Ürünler bünyesinde kariyer fırsatları. Güçlü ekip kültürümüz ve kariyer gelişim imkânları hakkında bilgi edinin." />
+  <meta name="theme-color" content="#060609" />
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <style>
+    /* ── Shared sub-page chrome ── */
+    .page-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(6,6,9,.88); backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .page-nav-logo { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+    .page-nav-logo img { height: 28px; width: auto; }
+    .page-nav-logo span { font-family: "Sora", sans-serif; font-weight: 800; font-size: .9rem; color: var(--text); }
+    .page-nav-logo small { display: block; font-size: .65rem; font-weight: 400; color: var(--text-dim); font-family: "Inter", sans-serif; }
+    .lang-switch { display: flex; background: rgba(255,255,255,.06); border-radius: 999px; padding: 3px; }
+    .lang-switch button { font-weight: 700; font-size: .7rem; letter-spacing: .06em; border: none; background: none; color: var(--text-dim); padding: .35rem .75rem; border-radius: 999px; cursor: pointer; transition: background .2s, color .2s; }
+    .lang-switch button.active { background: var(--accent); color: #1a0f02; }
+
+    .page-subnav {
+      position: fixed; top: 64px; left: 0; right: 0; z-index: 99;
+      background: rgba(6,6,9,.92); backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-subnav .container { display: flex; height: 44px; align-items: center; overflow-x: auto; }
+    .page-subnav a {
+      padding: 0 1.2rem; height: 44px; display: flex; align-items: center;
+      font-size: .8rem; font-weight: 600; color: var(--text-dim);
+      text-decoration: none; white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color .2s, border-color .2s;
+    }
+    .page-subnav a:hover { color: var(--text); border-color: rgba(242,162,60,.4); }
+    .page-subnav a.active { color: var(--text); border-color: var(--accent); }
+
+    .page-footer { background: var(--bg); border-top: 1px solid var(--border); padding: 2rem 0; text-align: center; }
+    .page-footer p { color: var(--text-dim); font-size: .82rem; }
+    .page-footer a { color: var(--accent); text-decoration: none; }
+
+    main { padding-top: 108px; }
+
+    /* ── Page hero ── */
+    .pg-hero { padding: clamp(4rem, 9vw, 7rem) 0 clamp(3rem, 7vw, 5rem); border-bottom: 1px solid var(--border); }
+    .pg-hero-eyebrow { display: inline-flex; align-items: center; gap: .5rem; font-size: .78rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
+    .pg-hero h1 { font-family: "Sora", sans-serif; font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 800; line-height: 1.1; letter-spacing: -.02em; margin-bottom: 1.2rem; }
+    .pg-hero p { color: var(--text-dim); font-size: clamp(.96rem, 1.4vw, 1.06rem); line-height: 1.75; max-width: 640px; }
+
+    /* ── HR Card ── */
+    .hr-card {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+      padding: 3rem; border-radius: var(--radius-lg); background: rgba(255,255,255,.018); border: 1px solid var(--border);
+    }
+    .hr-card h3 { font-family: "Sora", sans-serif; font-size: clamp(1.4rem, 2.4vw, 1.8rem); font-weight: 800; margin-bottom: 1rem; }
+    .hr-card p { color: var(--text-dim); line-height: 1.75; margin-bottom: .8rem; }
+    .hr-mail {
+      display: inline-flex; align-items: center; gap: .55rem; margin-top: .8rem;
+      font-weight: 600; color: var(--accent); text-decoration: none; font-size: .95rem;
+    }
+    .hr-mail:hover { text-decoration: underline; }
+    .hr-mail svg { width: 16px; height: 16px; }
+
+    /* ── HR Perks ── */
+    .hr-perks { display: flex; flex-direction: column; gap: 1.2rem; }
+    .hr-perk { display: flex; gap: 1rem; align-items: flex-start; }
+    .hr-perk-icon {
+      width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,.04);
+      border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--accent);
+    }
+    .hr-perk-icon svg { width: 20px; height: 20px; }
+    .hr-perk h5 { font-size: .92rem; font-weight: 700; margin-bottom: .25rem; }
+    .hr-perk p { color: var(--text-dim); font-size: .86rem; line-height: 1.55; margin: 0; }
+
+    /* ── Open positions placeholder ── */
+    .open-positions { margin-top: 3rem; }
+    .open-positions h3 { font-family: "Sora", sans-serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 1.4rem; }
+    .position-card {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: 1.4rem 1.8rem; border-radius: var(--radius-md); border: 1px solid var(--border);
+      background: rgba(255,255,255,.014); margin-bottom: .75rem;
+      transition: background .25s, border-color .25s;
+    }
+    .position-card:hover { background: rgba(255,255,255,.03); border-color: rgba(255,255,255,.12); }
+    .position-card .pos-title { font-weight: 700; font-size: .96rem; margin-bottom: .2rem; }
+    .position-card .pos-meta { font-size: .82rem; color: var(--text-dim); }
+    .pos-apply {
+      display: inline-flex; align-items: center; gap: .4rem; padding: .55rem 1.2rem;
+      border-radius: 999px; border: 1px solid var(--border); font-size: .8rem; font-weight: 600;
+      color: var(--accent); text-decoration: none; white-space: nowrap;
+      transition: border-color .2s, background .2s;
+    }
+    .pos-apply:hover { background: rgba(242,162,60,.08); border-color: var(--accent); }
+    .pos-apply svg { width: 13px; height: 13px; }
+
+    @media (max-width: 768px) {
+      .hr-card { grid-template-columns: 1fr; padding: 2rem; gap: 2rem; }
+      .position-card { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+    </symbol>
+    <symbol id="icon-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+    </symbol>
+    <symbol id="icon-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    </symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </symbol>
+    <symbol id="icon-arrow-up-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+    </symbol>
+  </svg>
+
+  <!-- NAV -->
+  <nav class="page-nav">
+    <div class="container">
+      <a href="index.html" class="page-nav-logo">
+        <img src="assets/img/fors-logo.png" alt="FORS" />
+        <span>FORM<small><span class="lang-tr">Tic. ve Sınai Ürünler</span><span class="lang-en">Commercial &amp; Industrial</span></small></span>
+      </a>
+      <div class="lang-switch">
+        <button data-lang="tr" type="button">TR</button>
+        <button data-lang="en" type="button">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SUB-NAV -->
+  <div class="page-subnav">
+    <div class="container">
+      <a href="hakkimizda.html"><span class="lang-tr">Hakkımızda</span><span class="lang-en">About</span></a>
+      <a href="ik.html" class="active"><span class="lang-tr">İnsan Kaynakları</span><span class="lang-en">Careers</span></a>
+      <a href="kvkk.html">KVKK</a>
+      <a href="ebulten.html"><span class="lang-tr">E-Bülten</span><span class="lang-en">Newsletter</span></a>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="pg-hero section-soft">
+      <div class="container">
+        <p class="pg-hero-eyebrow"><span class="lang-tr">İnsan Kaynakları</span><span class="lang-en">Human Resources</span></p>
+        <h1 class="reveal">
+          <span class="lang-tr">FORM Ailesine<br>Katılın</span>
+          <span class="lang-en">Join the<br>FORM Family</span>
+        </h1>
+        <p class="reveal">
+          <span class="lang-tr">Güçlü ekip kültürümüz ve köklü kurum kimliğimizle birlikte büyümek ister misiniz? FORM'da kariyer yolculuğunuzu başlatın.</span>
+          <span class="lang-en">Do you want to grow with our strong team culture and deep corporate identity? Start your career journey at FORM.</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- HR CARD -->
+    <section class="section">
+      <div class="container">
+        <div class="hr-card reveal">
+          <div>
+            <h3><span class="lang-tr">Güçlü Ekip, Köklü Kültür</span><span class="lang-en">A Strong Team, Deep Culture</span></h3>
+            <p>
+              <span class="lang-tr">FORM'un başarısının arkasında güçlü ekibi ve köklü kurum kültürü bulunmaktadır.</span>
+              <span class="lang-en">Behind FORM's success lies its strong team and deep corporate culture.</span>
+            </p>
+            <p>
+              <span class="lang-tr">Çalışanlarımızın gelişimini destekleyen, fikirlerine değer veren ve başarıyı ödüllendiren bir çalışma ortamı oluşturmayı hedefliyoruz. İnsan odaklı yaklaşımımız sayesinde çalışanlarımızın potansiyellerini ortaya çıkarabilecekleri profesyonel bir ortam sunuyoruz.</span>
+              <span class="lang-en">We aim to create a working environment that supports the development of our employees, values their ideas and rewards success. Thanks to our people-centered approach, we offer a professional environment where our employees can realize their potential.</span>
+            </p>
+            <p>
+              <span class="lang-tr">Kariyer yolculuğunuzda FORM ailesinin bir parçası olmak isterseniz özgeçmişinizi bizimle paylaşabilirsiniz.</span>
+              <span class="lang-en">If you would like to be part of the FORM family in your career journey, you can share your CV with us.</span>
+            </p>
+            <a href="mailto:ik@formtrade.com.tr" class="hr-mail">
+              <svg><use href="#icon-mail"/></svg>
+              ik@formtrade.com.tr
+            </a>
+          </div>
+          <div class="hr-perks">
+            <div class="hr-perk">
+              <div class="hr-perk-icon"><svg><use href="#icon-star"/></svg></div>
+              <div>
+                <h5><span class="lang-tr">Kariyer Gelişimi</span><span class="lang-en">Career Growth</span></h5>
+                <p><span class="lang-tr">Sürekli eğitim ve gelişim fırsatları.</span><span class="lang-en">Continuous training and development opportunities.</span></p>
+              </div>
+            </div>
+            <div class="hr-perk">
+              <div class="hr-perk-icon"><svg><use href="#icon-users"/></svg></div>
+              <div>
+                <h5><span class="lang-tr">Takım Ruhu</span><span class="lang-en">Team Spirit</span></h5>
+                <p><span class="lang-tr">Güçlü bir ekip kültürü ve dayanışma.</span><span class="lang-en">A strong team culture and solidarity.</span></p>
+              </div>
+            </div>
+            <div class="hr-perk">
+              <div class="hr-perk-icon"><svg><use href="#icon-heart"/></svg></div>
+              <div>
+                <h5><span class="lang-tr">Çalışan Memnuniyeti</span><span class="lang-en">Employee Satisfaction</span></h5>
+                <p><span class="lang-tr">Başarıyı ödüllendiren, kapsayıcı bir iş yeri.</span><span class="lang-en">An inclusive workplace that rewards success.</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPEN POSITIONS -->
+    <section class="section section-soft">
+      <div class="container">
+        <div class="section-head">
+          <div class="badge"><span class="dot"></span><span class="lang-tr">Açık Pozisyonlar</span><span class="lang-en">Open Positions</span></div>
+          <h2 class="reveal"><span class="lang-tr">Şu An Aramızdaki Yerini Al</span><span class="lang-en">Take Your Place Among Us</span></h2>
+          <p class="desc reveal">
+            <span class="lang-tr">Açık bir pozisyon bulamazsanız özgeçmişinizi <a href="mailto:ik@formtrade.com.tr" style="color:var(--accent)">ik@formtrade.com.tr</a> adresine gönderin; havuzumuzda saklayalım.</span>
+            <span class="lang-en">If you can't find an open position, send your CV to <a href="mailto:ik@formtrade.com.tr" style="color:var(--accent)">ik@formtrade.com.tr</a> and we'll keep it on file.</span>
+          </p>
+        </div>
+        <div class="open-positions reveal">
+          <div class="position-card">
+            <div>
+              <p class="pos-title"><span class="lang-tr">Satış Temsilcisi</span><span class="lang-en">Sales Representative</span></p>
+              <p class="pos-meta"><span class="lang-tr">İstanbul · Tam Zamanlı</span><span class="lang-en">Istanbul · Full-Time</span></p>
+            </div>
+            <a href="mailto:ik@formtrade.com.tr?subject=Satış Temsilcisi Başvurusu" class="pos-apply">
+              <span class="lang-tr">Başvur</span><span class="lang-en">Apply</span>
+              <svg><use href="#icon-arrow-up-right"/></svg>
+            </a>
+          </div>
+          <div class="position-card">
+            <div>
+              <p class="pos-title"><span class="lang-tr">Depo ve Lojistik Sorumlusu</span><span class="lang-en">Warehouse &amp; Logistics Specialist</span></p>
+              <p class="pos-meta"><span class="lang-tr">İstanbul · Tam Zamanlı</span><span class="lang-en">Istanbul · Full-Time</span></p>
+            </div>
+            <a href="mailto:ik@formtrade.com.tr?subject=Depo ve Lojistik Sorumlusu Başvurusu" class="pos-apply">
+              <span class="lang-tr">Başvur</span><span class="lang-en">Apply</span>
+              <svg><use href="#icon-arrow-up-right"/></svg>
+            </a>
+          </div>
+          <div class="position-card">
+            <div>
+              <p class="pos-title"><span class="lang-tr">Müşteri Hizmetleri Uzmanı</span><span class="lang-en">Customer Service Specialist</span></p>
+              <p class="pos-meta"><span class="lang-tr">İstanbul · Tam Zamanlı</span><span class="lang-en">Istanbul · Full-Time</span></p>
+            </div>
+            <a href="mailto:ik@formtrade.com.tr?subject=Müşteri Hizmetleri Uzmanı Başvurusu" class="pos-apply">
+              <span class="lang-tr">Başvur</span><span class="lang-en">Apply</span>
+              <svg><use href="#icon-arrow-up-right"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="page-footer">
+    <div class="container">
+      <p>
+        © <span id="year"></span> Form Ticari ve Sınai Ürünler San. ve Dış Tic. A.Ş.
+        <span class="lang-tr"> · Tüm hakları saklıdır.</span><span class="lang-en"> · All rights reserved.</span>
+        &nbsp;·&nbsp;
+        <a href="index.html"><span class="lang-tr">Ana Sayfa</span><span class="lang-en">Home</span></a>
+        &nbsp;·&nbsp;
+        <a href="index.html#contact"><span class="lang-tr">İletişim</span><span class="lang-en">Contact</span></a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="assets/js/subpage.js"></script>
+</body>
+</html>
